@@ -1,0 +1,314 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{balance}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\definecolor{codegray}{gray}{0.95}
+\lstset{basicstyle=\ttfamily\footnotesize,backgroundcolor=\color{codegray},breaklines=true,
+        frame=single,captionpos=b,columns=fullflexible}
+
+\title{DocIntel: A Provider-Flexible, Privacy-Oriented Document Intelligence Workspace\\
+\large System Design, Implementation, and Evaluation}
+\author{
+\IEEEauthorblockN{Samar Mittal\IEEEauthorrefmark{1}, Rajkumar Santra\IEEEauthorrefmark{2}, and Sonam Maurya\IEEEauthorrefmark{3}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Independent Researcher\\samarmittal59@gmail.com}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Affiliation and email to be added}
+\IEEEauthorblockA{\IEEEauthorrefmark{3}Affiliation and email to be added}
+}
+
+\begin{abstract}
+Modern document repositories contain heterogeneous content, including text-native files, scanned pages, spreadsheets, tables, URLs, and multimedia sources. This paper presents DocIntel, a containerized document-intelligence workspace that combines document extraction, optional layout-aware OCR, vector retrieval, provider-selectable generative models, notebook-oriented conversation, and downloadable visual explanations. DocIntel separates the browser interface, API, workers, document processing, model providers, and persistent storage, while allowing deployments to remain local or use cloud AI providers. The system is implemented with Next.js, FastAPI, LangGraph/LangChain orchestration, SurrealDB, and optional Docling processing. This paper documents its architecture, retrieval workflow, privacy and security boundaries, implementation methodology, reproducibility procedure, and validation evidence. A preliminary evaluation of nine synthetic railway-domain documents observed successful extraction for three PDF, three DOCX, and three XLSX files; backend visualization tests and frontend component tests also passed. OCR-quality claims are scoped separately because the initial text-native sample corpus did not establish scanned-document accuracy.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Document intelligence, retrieval-augmented generation, OCR, vector search, knowledge workspace, multilingual interfaces, document layout analysis, provider interoperability
+\end{IEEEkeywords}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Organizations and researchers increasingly work with large, heterogeneous collections of documents. Conventional repositories support storage and keyword search but provide limited support for source-grounded question answering, cross-document synthesis, visual reasoning, or structured transformation. Information can also be lost when a document contains scans, complex tables, figures, formulas, or multiple reading orders. General-purpose chat systems mitigate some of these tasks but may not preserve source provenance, user control, persistent notebooks, or local deployment.
+
+DocIntel addresses this gap as a private research workspace built around a user-managed collection of sources. A source may be a document, URL, text, audio, video, or supported image. The application extracts content, optionally performs OCR and layout analysis, creates retrieval context, and supports notebook chat, source chat, transformations, summaries, and generated visualizations. The design explicitly permits interchangeable cloud or local language and embedding models rather than binding each workflow to one vendor.
+
+\subsection{Research Objectives}
+The principal objectives are:
+\begin{enumerate}[leftmargin=*]
+  \item to integrate heterogeneous source ingestion and document extraction into one workflow;
+  \item to support layout-aware OCR without making it mandatory for lightweight deployments;
+  \item to provide source-grounded retrieval with configurable embedding and chat models;
+  \item to preserve a strict separation between application logic, persistent storage, and external AI providers;
+  \item to support reproducible local deployment through Docker Compose; and
+  \item to provide transparent visual explanations through Mermaid and Matplotlib.
+\end{enumerate}
+
+\subsection{Research Questions}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{RQ1:} How can heterogeneous document sources be processed through one extensible pipeline?
+  \item \textbf{RQ2:} What architectural choices permit cloud and local models without vendor lock-in?
+  \item \textbf{RQ3:} How does optional OCR change extraction behavior for scanned and complex documents?
+  \item \textbf{RQ4:} Which deployment, retrieval, privacy, and reproducibility properties should a research document workspace guarantee?
+  \item \textbf{RQ5:} Which implementation-level security controls are necessary when generating visual output?
+\end{itemize}
+
+\section{Related Work and Positioning}
+Document intelligence combines optical character recognition, document-layout analysis, information extraction, semantic retrieval, and generative language models. Classical OCR systems recognize characters but often have limited understanding of reading order, section hierarchy, captions, tables, and document-level meaning. Layout-aware systems reduce such losses by representing page structure and content objects.
+
+Retrieval-augmented generation (RAG) retrieves relevant contextual evidence before an answer is generated. Vector embeddings map semantically related text into a shared representation space, enabling similarity search independent of exact keyword matching. Retrieval quality therefore depends on extraction quality, chunking strategy, embedding model selection, retrieval parameters, and generation model behavior. DocIntel separates these choices so that the chat and embedding models need not come from the same provider.
+
+\begin{table}[H]
+\centering
+\caption{Comparison with alternative document-processing approaches}
+\label{tab:positioning}
+\begin{tabular}{p{2.05cm}p{2.05cm}p{2.05cm}}
+\toprule
+Approach & Strength & Limitation \\
+\midrule
+Tesseract OCR & Mature and local; broad script support & Base package can require additional layout and language setup; accuracy depends on image quality and configuration \\
+PaddleOCR & Strong detection and recognition pipelines; flexible deployment & Document workflow, RAG, notebooks, and application state require separate integration \\
+Cloud document APIs & Managed layout/OCR and scaling & Vendor dependency, network transfer, usage charges, and regional/privacy constraints \\
+DocIntel & Integrated ingest, layout/OCR option, notebooks, retrieval, chat, and provider control & Depends on external services for most cloud models and requires evaluation of each selected extraction stack \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table \ref{tab:positioning} is architectural rather than a benchmark conclusion. A defensible product comparison requires a common document corpus, OCR metrics, cost measurement, and model configuration.
+
+\section{System Architecture}
+DocIntel is deployed with Docker Compose as two primary services: the application and SurrealDB. The application image contains the Next.js frontend, FastAPI API, background worker/runtime, and AI graphs. SurrealDB stores persistent application records, processing state, credentials metadata, and vectors. User files and runtime state are stored in the notebook data volume.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=5mm and 7mm,
+  box/.style={draw,rounded corners,align=center,minimum height=8mm,minimum width=26mm,font=\scriptsize},
+  store/.style={draw,cylinder,shape border rotate=90,aspect=0.25,minimum height=11mm,minimum width=18mm,align=center,font=\scriptsize},
+  arrow/.style={-{Latex[length=2mm]},thick}]
+\node[box] (browser) {Browser/UI\\Next.js};
+\node[box,right=of browser] (api) {FastAPI\\REST API};
+\node[box,below=of api] (worker) {Background\\workers};
+\node[box,left=of worker] (extract) {Extraction\\and OCR};
+\node[box,right=of api] (graphs) {AI graphs\\RAG orchestration};
+\node[store,below=of graphs] (vectors) {SurrealDB\\records/vectors};
+\node[store,below=of extract] (files) {Persistent\\notebook data};
+\node[box,right=of graphs] (providers) {Cloud or local\\AI providers};
+\draw[arrow] (browser)--(api); \draw[arrow] (api)--(worker);
+\draw[arrow] (worker)--(extract); \draw[arrow] (api)--(graphs);
+\draw[arrow] (graphs)--(vectors); \draw[arrow] (extract)--(vectors);
+\draw[arrow] (extract)--(files); \draw[arrow] (vectors)--(api);
+\draw[arrow] (graphs)--(providers); \draw[arrow] (providers)--(graphs);
+\end{tikzpicture}
+\caption{DocIntel runtime architecture.}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Frontend}
+The Next.js frontend provides notebooks, sources, settings, search, chat, Markdown, podcast controls, and visualization rendering. The interface uses i18next browser-language detection, a saved preference, and an English fallback. Source text is not translated merely by selecting the interface locale; translation or multilingual understanding is performed by a configured language model or embedding model when appropriate.
+
+\subsection{API and Background Processing}
+FastAPI is responsible for authentication, provider credentials, model configuration, source creation, notebook operations, chat, transformations, search, jobs, and visualization endpoints. Long-running extraction, embedding generation, transformation, and podcast jobs are delegated through a worker/runtime path so that requests can be processed asynchronously. Processing status should be tracked through the API or user interface rather than assumed to be complete merely because upload succeeds.
+
+\subsection{AI Orchestration}
+LangGraph/LangChain-oriented graph workflows assemble prompts and source context, invoke a configured provider, and stream output. Chat and embeddings can be configured independently. This separation permits a local embedding model with a cloud language model, or both to be remote, local, or mixed according to latency, cost, and privacy requirements.
+
+\subsection{Storage and Persistence}
+SurrealDB stores notebooks, sources, notes, processing state, credentials metadata, jobs, and vector records. Uploaded source files and caches are under \texttt{notebook\_data}; database state is under \texttt{surreal\_data}. These volume semantics are important for backup, migration, and data-retention policy.
+
+\section{Document Processing Pipeline}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=3mm,
+ box/.style={draw,rounded corners,align=center,font=\scriptsize,minimum width=20mm,minimum height=9mm},
+ arrow/.style={-{Latex[length=2mm]},thick}]
+\node[box] (upload) {Source intake};
+\node[box,right=of upload] (detect) {Format/engine\ detection};
+\node[box,right=of detect] (extract) {Text/layout\ extraction};
+\node[box,below=of extract] (ocr) {Optional\ Docling OCR};
+\node[box,left=of ocr] (chunk) {Chunk and\ metadata};
+\node[box,left=of chunk] (embed) {Embedding\ generation};
+\node[box,left=of embed] (store) {SurrealDB\ persistence};
+\draw[arrow] (upload)--(detect); \draw[arrow] (detect)--(extract);
+\draw[arrow] (extract)--(ocr); \draw[arrow] (ocr)--(chunk);
+\draw[arrow] (chunk)--(embed); \draw[arrow] (embed)--(store);
+\end{tikzpicture}
+\caption{Source processing and retrieval preparation pipeline.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Source Ingestion}
+Supported sources are normalized into application content and metadata. Files include text-bearing formats such as PDF, DOCX, and XLSX, while URLs, text, audio, and video follow their respective content handlers. Format-specific extraction should preserve source identifiers so that responses can refer to original source records and generated evidence.
+
+\subsection{Extraction and OCR}
+DocIntel uses content-core extraction as the baseline and may enable Docling as an optional runtime. When enabled, Docling can perform layout-aware processing, OCR, table extraction, formula recognition, reading-order analysis, and image-oriented processing. OCR must be evaluated separately from native text extraction. A text-native PDF may bypass OCR regardless of image quality, and extraction settings can change the output.
+
+\subsection{Retrieval and Generation}
+Extracted text is segmented into chunks and associated with source metadata. The embedding provider generates vector representations stored by the application. A retrieval request searches for relevant vectors and metadata, assembles context, and invokes a selected language model. The model may also rely on notebook instructions, source instructions, conversation state, and transformation prompts.
+
+The conceptual workflow is
+\begin{equation}
+ R(q)=\operatorname{TopK}_{c \in C}\left(\cos(E_q(q),E_c(c))\right),
+\end{equation}
+where $q$ is the query, $C$ is the source corpus, $E_q$ and $E_c$ are embedding functions, and the top-$K$ contexts are passed to generation. If the embedding model changes, vectors from previous models should not be mixed. Existing sources generally require re-embedding for retrieval consistency.
+
+\section{Visual Explanation and Multimodal Features}
+DocIntel can render Mermaid diagrams as SVG blocks and generate Matplotlib/Python visualizations. It also supports conversion to TikZ/PGFPlots where applicable and allows generated SVG and source downloads. Mermaid uses strict rendering and SVG sanitization. Python plotting applies AST validation, restricted imports, private-attribute restrictions, timeout, output limits, temporary working directories, and process controls. These controls reduce risk but do not constitute an untrusted-code sandbox suitable for public tenants.
+
+The visualization capability should be considered generated presentation logic rather than ground-truth analysis. Numerical claims should be calculated reproducibly and checked against the source evidence.
+
+\section{Provider Configuration}
+DocIntel supports provider credentials for cloud and local systems, including OpenAI-compatible providers and Ollama. The provider registry determines required credentials and supported modalities. Model categories include language/chat, embedding, speech-to-text, and text-to-speech. Free chat models must not be treated as embedding models unless the provider explicitly supports an embedding modality.
+
+Google Gemini Embedding 001 is suitable as a stable embedding option when the Google provider credential is configured. Gemini Embedding 2 may provide newer or multimodal capabilities but should be used only after confirming the exact DocIntel/provider contract. Embedding dimensions and provider compatibility can affect model migration. Changing embeddings requires re-processing existing sources.
+
+As an offline option, Ollama can host models such as \texttt{nomic-embed-text}. For Docker deployment, the host may need to be addressed as \texttt{host.docker.internal}; this differs between operating systems and firewall configurations.
+
+\section{Deployment Methodology}
+DocIntel uses a persistent Docker deployment. A typical setup is:
+\begin{lstlisting}[language=bash,caption={Deployment commands}]
+cp .env.example .env
+openssl rand -hex 32
+# Configure OPEN_NOTEBOOK_ENCRYPTION_KEY in .env
+docker compose up -d --build
+docker compose ps
+docker compose logs -f open_notebook
+\end{lstlisting}
+
+The default user-facing ports are 8502 for the Next.js interface and 5055 for the API. SurrealDB is bound locally in the documented deployment. Stable keys are required: replacing the encryption key can make existing encrypted credentials unreadable. Provider credentials should be configured through the UI and not committed in version-control files.
+
+\section{Security and Privacy}
+DocIntel exposes several important privacy boundaries. Provider credentials are encrypted with a configured application key. Application files and runtime state persist separately from SurrealDB. Public GitHub repositories should exclude \texttt{.env}, uploads, databases, API keys, notebooks, caches, and generated runtime state. Cloud providers receive source context only when their model is selected and queried.
+
+Additional controls include strict Mermaid rendering, SVG sanitization, restricted Python execution, host/port isolation, and configurable authentication or password protection. A public deployment should also add HTTPS, authenticated administrative routes, database access controls, source-size limits, rate limiting, audit logging, backup policies, and isolated untrusted visualization execution.
+
+\section{Evaluation}
+\subsection{Implementation Validation}
+The repository has separate backend visualization tests and frontend test suites. The implementation validation cited during development included 7 backend visualization tests and 182 frontend tests across 35 files. The frontend production build and Docker Compose configuration were also validated. These values are snapshots from a development run and should be regenerated for publication.
+
+\subsection{Text-Native Extraction Study}
+A small synthetic railway-domain corpus containing three PDF, three DOCX, and three XLSX documents was used to test ingestion. All nine files were successfully extracted. This establishes format compatibility and persistence through a representative processing path, not OCR effectiveness or end-to-end retrieval correctness.
+
+\begin{table}[H]
+\centering
+\caption{Text-native extraction validation}
+\label{tab:extract}
+\begin{tabular}{lccc}
+\toprule
+Format & Files & Successful & Result \\
+\midrule
+PDF & 3 & 3 & Native text and tables processed \\
+DOCX & 3 & 3 & Document text processed \\
+XLSX & 3 & 3 & Spreadsheet content processed \\
+\midrule
+Total & 9 & 9 & 100\% extraction success \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Recommended OCR Evaluation}
+Because OCR accuracy cannot be inferred from native-format extraction, publication-grade evaluation should create or curate a corpus with known ground truth. Suggested metrics include character error rate (CER), word error rate (WER), table-cell accuracy, reading-order similarity, and formula recognition accuracy. Evaluation should report per-language and per-document-type results and include at least the following perturbations:
+\begin{itemize}[leftmargin=*]
+ \item low-resolution scans;
+ \item skew and rotation;
+ \item shadows and uneven illumination;
+ \item multi-column pages;
+ \item handwritten and mixed-language text;
+ \item embedded tables, formulas, captions, and stamps; and
+ \item native PDF, scanned PDF, and image comparison.
+\end{itemize}
+
+\subsection{Recommended Retrieval Evaluation}
+A reusable retrieval benchmark should contain verified questions, source citations, and expected passages. Recommended metrics are Recall@$K$, Mean Reciprocal Rank, NDCG, answer faithfulness, citation support, and human preference. Experiments should compare at least:
+\begin{enumerate}[leftmargin=*]
+ \item native extraction with no OCR;
+ \item Docling/OCR-enabled extraction;
+ \item Google Gemini Embedding 001;
+ \item a local Ollama embedding model; and
+ \item multiple chunk sizes and top-$K$ retrieval depths.
+\end{enumerate}
+
+\section{Reproducibility and Experimental Protocol}
+\begin{enumerate}[leftmargin=*]
+ \item Start from a clean commit and record its hash, image IDs, dependency lockfiles, and Docling version.
+ \item Configure a stable encryption key and provider credentials outside version control.
+ \item Import a fixed corpus and retain its checksums.
+ \item Record extraction-engine, OCR, chunk, embedding, language model, temperature, and retrieval settings.
+ \item Run source processing and wait for complete status.
+ \item Export extracted text and metadata without exposing private source content.
+ \item Execute retrieval and answer-generation queries using a fixed seed when supported.
+ \item Record provider, latency, cost, token usage, and generated answer.
+ \item Compare only runs that use compatible embedding spaces.
+ \item Rebuild embeddings after changing embedding providers or models.
+ \item Perform human verification for provenance and factual faithfulness.
+ \item Publish commands, configuration templates, aggregate metrics, failed cases, and environment limitations.
+\end{enumerate}
+
+A reproducible result must distinguish software compatibility from model quality. Container health, successful processing, and API connectivity do not establish answer correctness.
+
+\section{Threats to Validity}
+\begin{itemize}[leftmargin=*]
+ \item \textbf{Corpus bias:} The existing railway corpus is small and synthetic.
+ \item \textbf{OCR bias:} Native-format extraction does not measure OCR.
+ \item \textbf{Provider drift:} Cloud model behavior, prices, quotas, and identifiers can change.
+ \item \textbf{Embedding non-comparability:} Embedding vectors from different models cannot be compared directly.
+ \item \textbf{Metric instability:} Automatically generated answers require citation and faithfulness verification.
+ \item \textbf{Prompt sensitivity:} Retrieval and generation can vary with instructions and temperature.
+ \item \textbf{Privacy leaks:} Shared prompts may transmit source text to configured cloud providers.
+ \item \textbf{Localization coverage:} Interface translation is not equivalent to faithful multilingual content understanding.
+\end{itemize}
+
+\section{Limitations and Future Work}
+Future work should include larger multi-domain OCR benchmarks; systematic table and formula datasets; citation-level evidence evaluation; adversarial source tests; provenance visualization; incremental and differential embedding; privacy-preserving local inference; user studies; and stronger tenant isolation for public deployments. Benchmarks should include OCR engines such as Tesseract, PaddleOCR, and Docling under controlled hardware and model configurations.
+
+Additional engineering work includes immutable document snapshots, chunk provenance, field-level confidence, source-change auditing, encrypted backup procedures, and objective evaluation of response latency and token cost. The Python plotting environment should be moved to a stronger isolated service before accepting untrusted third-party code.
+
+\section{Conclusion}
+DocIntel demonstrates an integrated architecture for private document research. It combines heterogeneous ingestion, optional layout-aware OCR, configurable embeddings, retrieval, provider-flexible generation, notebooks, multilingual interface support, and downloadable visual explanations. Its architecture avoids vendor lock-in while keeping storage and credentials under application control.
+
+Initial testing confirms compatibility with representative text-native PDF, DOCX, and XLSX sources and validates the frontend, visualization backend, and Docker configuration. For a publishable scientific claim, OCR, embedding, retrieval, and generation require controlled experiments with documented corpora, metrics, baselines, and uncertainty.
+
+\appendix
+\section{Configuration Template}
+\begin{lstlisting}[caption={Safe environment template; values are illustrative}]
+OPEN_NOTEBOOK_ENCRYPTION_KEY=<generate-a-stable-random-key>
+OPEN_NOTEBOOK_ENABLE_DOCLING=true
+SURREAL_USER=root
+SURREAL_PASSWORD=<choose-a-private-password>
+SURREAL_NAMESPACE=open_notebook
+SURREAL_DATABASE=open_notebook
+\end{lstlisting}
+
+\section{Data and Software Availability Statement}
+The source repository and execution instructions should be published together with the dependency lockfiles and Docker Compose configuration. API keys, private documents, databases, notebooks, and runtime data must not be included. Synthetic documents may be distributed if cleared for redistribution; private or unpublished source data should be excluded. Results should include software commit hash, container image digest, Docling version, provider/model identifiers, and test commands.
+
+\section{Suggested Abstract for Submission}
+\begin{quote}
+DocIntel is a privacy-oriented and provider-flexible document intelligence workspace for notebooks, heterogeneous sources, retrieval-augmented chat, OCR, and generated visual explanations. This paper describes its containerized architecture and processing pipeline based on Next.js, FastAPI, LangGraph-style AI orchestration, SurrealDB, and optional Docling layout/OCR processing. We present deployment and security considerations, provider/model configuration, a text-native extraction study involving nine railway-domain files, and an experimental protocol for a controlled OCR and retrieval evaluation. The system architecture separates interface, orchestration, processing, storage, and model providers, allowing local and cloud embeddings to coexist with different chat models. Preliminary results demonstrate broad text-native format compatibility and successful frontend and backend validation; OCR accuracy, retrieval quality, and faithfulness require larger ground-truth datasets and must be reported separately.
+\end{quote}
+
+\begin{thebibliography}{10}
+\bibitem{lewis2020rag} P. Lewis, E. Perez, A. Piktus, et al., ``Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,'' \emph{Advances in Neural Information Processing Systems}, 2020.
+\bibitem{devlin2018bert} J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding,'' in \emph{NAACL-HLT}, 2019.
+\bibitem{smith2007tesseract} R. Smith, ``An Overview of the Tesseract OCR Engine,'' in \emph{Proceedings of the Ninth International Conference on Document Analysis and Recognition}, 2007.
+\bibitem{paddleocr} PaddleOCR Contributors, ``PaddleOCR: Multilingual OCR Toolkit,'' GitHub repository, 2026. [Online]. Available: https://github.com/PaddlePaddle/PaddleOCR
+\bibitem{docling} Docling Contributors, ``Docling: Document Processing and Conversion,'' GitHub repository, 2026. [Online]. Available: https://github.com/docling-project/docling
+\bibitem{surrealdb} SurrealDB, ``SurrealDB Documentation,'' 2026. [Online]. Available: https://surrealdb.com/docs
+\bibitem{langgraph} LangChain AI, ``LangGraph Documentation,'' 2026. [Online]. Available: https://langchain-ai.github.io/langgraph/
+\bibitem{ollama} Ollama, ``Ollama Documentation,'' 2026. [Online]. Available: https://ollama.com
+\bibitem{googleembed} Google, ``Gemini Embeddings Documentation,'' 2026. [Online]. Available: https://ai.google.dev/gemini-api/docs/embeddings
+\bibitem{contentcore} IBM Research, ``content-core: Document Extraction for AI Applications,'' GitHub repository, 2026. [Online]. Available: https://github.com/IBM/content-core
+
+\end{thebibliography}
+\end{document}

@@ -308,7 +308,7 @@ Run `docker compose down` only when you want DocIntel stopped. Do not remove or 
 | `surreal_data/` | SurrealDB database files. |
 | `.env` | Local secrets and configuration; never commit this file. |
 
-Do not commit databases, uploads, API keys, passwords, encryption keys, user notebooks, or generated runtime files to GitHub.
+Do not commit databases, uploads, API keys, passwords, encryption keys, user notebooks, or generated runtime files to GitHub or GitLab.
 
 ## Development
 
@@ -334,7 +334,7 @@ Build the complete Docker image after backend or frontend source changes:
 docker compose up -d --build
 ```
 
-## GitHub publishing checklist
+## GitHub and GitLab publishing checklist
 
 Before the first push:
 
@@ -361,3 +361,11 @@ DocIntel is developed and maintained by **Samar Mittal**.
 ## Third-party notice and license
 
 MIT-licensed third-party components and their copyright notices are preserved in [LICENSE](LICENSE), with distribution attribution in [NOTICE.md](NOTICE.md). This preserves the rights required by those licenses without changing ownership of Samar Mittal's original DocIntel branding, configuration, and integrations.
+
+## Research paper documentation
+
+A complete IEEE conference-format LaTeX manuscript covering DocIntel's architecture, document-processing pipeline, security model, deployment, provider configuration, evaluation, reproducibility protocol, limitations, and appendices is available in [docs/DocIntel_research_paper.tex](docs/DocIntel_research_paper.tex).
+
+The manuscript describes completed implementation and extraction tests; its OCR and retrieval claims should be refreshed only after controlled ground-truth experiments are run.
+
+The companion system diagrams are in [ARCHITECTURE.md](ARCHITECTURE.md). The LaTeX source can be compiled with an IEEE-compatible LaTeX distribution such as TeX Live or MiKTeX.
