@@ -9,6 +9,8 @@ def python_plot_instruction_for_messages(messages: list) -> str | None:
         if isinstance(message, HumanMessage):
             text = message.content if isinstance(message.content, str) else str(message.content)
             normalized = text.lower()
+            if "plotly" in normalized:
+                return None
             if "tikz" in normalized or "pgfplots" in normalized:
                 return None
             chart_terms = ("chart", "graph", "plot", "histogram", "scatter", "bar chart", "line chart", "pie chart")

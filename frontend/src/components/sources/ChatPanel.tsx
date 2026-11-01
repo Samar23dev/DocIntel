@@ -405,8 +405,9 @@ function AIMessageContent({
           'vega-lite': 'Vega-Lite chart',
           dot: 'Graphviz diagram',
           'python-plot': 'Python chart',
+          'plotly-plot': 'Plotly chart',
         }
-        const fence = format === 'mermaid' ? 'mermaid' : format === 'dot' ? 'dot' : format === 'vega-lite' ? 'vega-lite' : 'python-plot'
+        const fence = format === 'mermaid' ? 'mermaid' : format === 'dot' ? 'dot' : format === 'vega-lite' ? 'vega-lite' : format
         onSendMessage(`Regenerate this visualization using ${labels[format]}. Preserve the information and relationships, simplify dense layouts when needed, and return exactly one fenced \`\`\`${fence} block. Do not surround the code block with another visualization.\n\nCurrent source:\n\n${'```'}${format === 'python-plot' ? 'python-plot' : fence}\n${code}\n${'```'}`)
       }}
     >

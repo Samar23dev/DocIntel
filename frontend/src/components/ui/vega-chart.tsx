@@ -42,7 +42,7 @@ export function VegaChart({
   onRegenerate,
 }: {
   code: string
-  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot') => void
+  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot' | 'plotly-plot') => void
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const resultRef = useRef<Result | null>(null)
@@ -67,12 +67,14 @@ export function VegaChart({
         if (!cancelled) resultRef.current = result
       }).catch((reason: unknown) => {
         if (!cancelled) {
-          setError(reason instanceof Error ? reason.message : 'Invalid Vega-Lite specification.')
+          console.error('Vega-Lite render failed', reason)
+          setError('The generated specification is invalid. Please try regenerating it.')
         }
       })
     } catch (reason) {
       if (!cancelled) {
-        setError(reason instanceof Error ? reason.message : 'Invalid Vega-Lite JSON.')
+        console.error('Vega-Lite JSON parse failed', reason)
+        setError('The generated specification is invalid. Please try regenerating it.')
       }
     }
 
@@ -133,6 +135,7 @@ export function VegaChart({
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('dot') }}>Graphviz DOT</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('vega-lite') }}>Vega-Lite</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('python-plot') }}>Matplotlib / Python</button>
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('plotly-plot') }}>Plotly / Python</button>
               </div>
             )}
           </div>

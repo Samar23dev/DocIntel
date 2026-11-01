@@ -9,6 +9,7 @@ import { useThemeStore } from '@/lib/stores/theme-store'
 import { KATEX_OPTIONS } from '@/lib/utils/katex-options'
 import { MermaidDiagram } from '@/components/ui/mermaid-diagram'
 import { PythonPlot } from '@/components/ui/python-plot'
+import { PlotlyPlot } from '@/components/ui/plotly-plot'
 import { VegaChart } from '@/components/ui/vega-chart'
 import { GraphvizDiagram } from '@/components/ui/graphviz-diagram'
 import { oneDark as darkTheme } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -66,7 +67,7 @@ export function MarkdownRenderer({
 }: {
   children: React.ReactNode
   components?: Components
-  onVisualizationRegenerate?: (code: string, format: 'mermaid' | 'vega-lite' | 'dot' | 'python-plot') => void
+  onVisualizationRegenerate?: (code: string, format: 'mermaid' | 'vega-lite' | 'dot' | 'python-plot' | 'plotly-plot') => void
 }) {
 
   const { getEffectiveTheme } = useThemeStore()
@@ -104,7 +105,10 @@ export function MarkdownRenderer({
                 return <MermaidDiagram code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'mermaid') => onVisualizationRegenerate(String(children), format) : undefined} />
               }
               if (match?.[1].toLowerCase() === 'python-plot') {
-                return <PythonPlot code={String(children)} />
+                return <PythonPlot code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'python-plot') => onVisualizationRegenerate(String(children), format) : undefined} />
+              }
+              if (match?.[1].toLowerCase() === 'plotly-plot') {
+                return <PlotlyPlot code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'plotly-plot') => onVisualizationRegenerate(String(children), format) : undefined} />
               }
               if (match?.[1].toLowerCase() === 'vega-lite' || match?.[1].toLowerCase() === 'vega') {
                 return <VegaChart code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'vega-lite') => onVisualizationRegenerate(String(children), format) : undefined} />

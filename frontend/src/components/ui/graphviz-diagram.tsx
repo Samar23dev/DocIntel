@@ -10,7 +10,7 @@ export function GraphvizDiagram({
   onRegenerate,
 }: {
   code: string
-  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot') => void
+  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot' | 'plotly-plot') => void
 }) {
   const [svg, setSvg] = useState('')
   const [error, setError] = useState('')
@@ -26,7 +26,8 @@ export function GraphvizDiagram({
       const rendered = viz.renderSVGElement(code)
       if (!cancelled) setSvg(rendered.outerHTML)
     }).catch((reason: unknown) => {
-      if (!cancelled) setError(reason instanceof Error ? reason.message : 'Invalid Graphviz DOT source.')
+      console.error('Graphviz render failed', reason)
+      if (!cancelled) setError('The generated diagram is invalid. Please try regenerating it.')
     })
 
     return () => { cancelled = true }
@@ -70,6 +71,7 @@ export function GraphvizDiagram({
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('dot') }}>Graphviz DOT</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('vega-lite') }}>Vega-Lite</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('python-plot') }}>Matplotlib / Python</button>
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('plotly-plot') }}>Plotly / Python</button>
               </div>
             )}
           </div>

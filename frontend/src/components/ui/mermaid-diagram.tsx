@@ -21,7 +21,7 @@ export function MermaidDiagram({
   onRegenerate,
 }: {
   code: string
-  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot') => void
+  onRegenerate?: (format?: 'mermaid' | 'dot' | 'vega-lite' | 'python-plot' | 'plotly-plot') => void
 }) {
   const id = useId().replace(/:/g, '')
   const { getEffectiveTheme } = useThemeStore()
@@ -54,8 +54,8 @@ export function MermaidDiagram({
       }
     }).catch((reason: unknown) => {
       if (!cancelled) {
-        const message = reason instanceof Error ? reason.message : 'Invalid Mermaid syntax.'
-        setError(message.replace(/^.*\n/, '').trim() || 'Invalid Mermaid syntax.')
+        console.error('Mermaid render failed', reason)
+        setError('The generated diagram is invalid. Please try regenerating it.')
       }
     })
 
@@ -106,6 +106,7 @@ export function MermaidDiagram({
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('dot') }}>Graphviz DOT</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('vega-lite') }}>Vega-Lite</button>
                 <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('python-plot') }}>Matplotlib / Python</button>
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-muted" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('plotly-plot') }}>Plotly / Python</button>
               </div>
             )}
           </div>

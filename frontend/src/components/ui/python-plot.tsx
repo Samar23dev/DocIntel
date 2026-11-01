@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Check, Copy, Download } from 'lucide-react'
+import { Check, ChevronDown, Copy, Download, RefreshCw } from 'lucide-react'
 
 function sanitizeSvg(svg: string) {
   const document = new DOMParser().parseFromString(svg, 'image/svg+xml')
@@ -9,15 +9,13 @@ function sanitizeSvg(svg: string) {
   return new XMLSerializer().serializeToString(document.documentElement)
 }
 
-function displayError(reason: unknown) {
-  if (reason instanceof Error && reason.message) return reason.message
-  return 'Plot generation failed.'
-}
+type VisualizationFormat = 'mermaid' | 'dot' | 'vega-lite' | 'python-plot' | 'plotly-plot'
 
-export function PythonPlot({ code }: { code: string }) {
+export function PythonPlot({ code, onRegenerate }: { code: string; onRegenerate?: (format?: VisualizationFormat) => void }) {
   const [svg, setSvg] = useState('')
   const [error, setError] = useState('')
   const [copied, setCopied] = useState(false)
+  const [formatMenuOpen, setFormatMenuOpen] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -33,7 +31,8 @@ export function PythonPlot({ code }: { code: string }) {
       if (!response.ok) throw new Error(data.detail || 'Plot generation failed')
       if (!cancelled) setSvg(sanitizeSvg(data.svg))
     }).catch((reason) => {
-      if (!cancelled) setError(displayError(reason))
+      console.error('Matplotlib render failed', reason)
+      if (!cancelled) setError('The generated chart could not be rendered. Please try regenerating it.')
     })
 
     return () => { cancelled = true }
@@ -66,6 +65,18 @@ export function PythonPlot({ code }: { code: string }) {
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => download(svg, 'docintel-chart.svg', 'image/svg+xml')}><Download className="size-3.5" />Image</button>
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => download(code.trim(), 'docintel-chart.py', 'text/x-python')}><Download className="size-3.5" />Code</button>
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => { navigator.clipboard.writeText(code.trim()); setCopied(true); window.setTimeout(() => setCopied(false), 1500) }}>{copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}{copied ? 'Copied' : 'Copy'}</button>
+        {onRegenerate && (
+          <div className="relative">
+            <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => setFormatMenuOpen((open) => !open)}><RefreshCw className="size-3.5" />Regenerate <ChevronDown className="size-3" /></button>
+            {formatMenuOpen && (
+              <div className="absolute right-0 top-full z-50 mt-1 w-44 rounded-md border border-border bg-popover p-1 shadow-xl">
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('plotly-plot') }}>Plotly / Python</button>
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('vega-lite') }}>Vega-Lite</button>
+                <button type="button" className="block w-full rounded px-2 py-1.5 text-left text-xs hover:bg-accent" onClick={() => { setFormatMenuOpen(false); onRegenerate?.('python-plot') }}>Matplotlib / Python</button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       <div className="w-full max-w-full overflow-x-auto p-3 [&>svg]:mx-auto [&>svg]:block [&>svg]:h-auto [&>svg]:max-w-full [&>svg]:min-w-[320px]" dangerouslySetInnerHTML={{ __html: svg }} />
     </div>
