@@ -14,6 +14,8 @@ def vega_lite_instruction_for_messages(messages: list) -> str | None:
         if isinstance(message, HumanMessage):
             text = message.content if isinstance(message.content, str) else str(message.content)
             normalized = text.lower()
+            if "vega-lite" not in normalized and "vega lite" not in normalized and "vega" not in normalized:
+                return None
             chart_terms = (
                 "chart", "graph", "histogram", "scatter", "bar", "line",
                 "pie", "trend", "timeline", "comparison",

@@ -23,9 +23,9 @@ def test_mermaid_request_does_not_match_normal_chat():
     assert mermaid_instruction_for_messages(messages) is None
 
 
-def test_python_plot_request_is_disabled():
+def test_python_plot_request_is_enabled_by_default():
     messages = [HumanMessage(content="Create a line chart for quarterly revenue")]
-    assert python_plot_instruction_for_messages(messages) is None
+    assert python_plot_instruction_for_messages(messages)
 
 
 def test_tikz_request_is_not_sent_to_python_plot_specialist():
@@ -33,8 +33,8 @@ def test_tikz_request_is_not_sent_to_python_plot_specialist():
     assert python_plot_instruction_for_messages(messages) is None
 
 
-def test_line_chart_uses_vega_lite_specialist():
-    messages = [HumanMessage(content="Create a line chart for quarterly revenue")]
+def test_explicit_vega_lite_chart_uses_vega_lite_specialist():
+    messages = [HumanMessage(content="Create a Vega-Lite line chart for quarterly revenue")]
     instruction = vega_lite_instruction_for_messages(messages)
 
     assert instruction is not None

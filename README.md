@@ -1,6 +1,6 @@
 # DocIntel
 
-DocIntel is a private research workspace developed and maintained by Samar Mittal (samarmittal59@gmail.com). It brings documents, notebooks, notes, search, AI conversations, podcasts, and visual explanations into one configurable workspace, with Vega-Lite charts and Graphviz DOT diagrams as the default generated formats. Mermaid remains available as an explicit regeneration option. DocIntel is designed for private, provider-flexible knowledge work and can run as a containerized deployment on a local machine or trusted server.
+DocIntel is a private research workspace developed and maintained by Samar Mittal (samarmittal59@gmail.com). It brings documents, notebooks, notes, search, AI conversations, podcasts, and visual explanations into one configurable workspace, with Matplotlib/Python charts and Graphviz DOT diagrams as the default generated formats. Vega-Lite and Mermaid remain available as explicit regeneration options. DocIntel is designed for private, provider-flexible knowledge work and can run as a containerized deployment on a local machine or trusted server.
 
 ## What DocIntel can do
 
@@ -232,7 +232,7 @@ OCR is an extraction aid, not a language guarantee: scripts, handwriting, low-re
 
 ## Visualization formats
 
-Generated data charts default to Vega-Lite. Relationships, workflows, and architecture diagrams default to Graphviz DOT. Mermaid generation is disabled as a default output and can still be selected explicitly through a visualization's **Regenerate** menu.
+Generated data charts default to Matplotlib/Python. Relationships, workflows, and architecture diagrams default to Graphviz DOT. Vega-Lite and Mermaid remain available explicitly through each visualization's **Regenerate** menu.
 
 Example:
 
@@ -252,7 +252,7 @@ Use requests such as:
 
 Mermaid generation is only requested explicitly or through the regeneration option. The frontend renders Mermaid as SVG and provides PNG, SVG, `.mmd` source download, source copy, and format-regeneration controls.
 
-## Matplotlib charts (optional)
+## Matplotlib charts
 
 Use requests such as:
 
@@ -260,7 +260,7 @@ Use requests such as:
 - “Generate a bar chart comparing Q1, Q2, Q3, and Q4.”
 - “Plot this data as a histogram.”
 
-Python/Matplotlib generation is optional and disabled from normal chat specialist routing. Existing/manual `python-plot` blocks remain supported and the backend executes chart code in a temporary directory before returning SVG output.
+Python/Matplotlib generation is enabled as the default chart format. The backend executes chart code in a temporary directory and returns SVG output.
 
 TikZ or PGFPlots code pasted with a request such as “Convert and render this chart” is also routed through the Matplotlib specialist so it can be displayed without requiring TikZ compilation in the browser.
 
