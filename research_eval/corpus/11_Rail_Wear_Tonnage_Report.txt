@@ -1,0 +1,28 @@
+                       RAIL WEAR MONITORING REPORT
+    Head wear versus cumulative tonnage on two monitored locations
+
+    Document No.                    ENGG/RAILWEAR/2026/07
+    Rail section                    60 kg/m, 90 UTS, LWR
+    Measurement method              Rail profile gauge, every 50 GMT
+    Locations                       Straight Km 5-9; Curve (R=650 m) Km 13-14
+
+    1. Wear Trend
+    Vertical head wear was measured at fixed stations at every 50 GMT of traffic. The curved location shows
+    markedly faster wear than the straight track because of higher lateral wheel-rail forces.
+
+
+
+
+                       Figure 1: Vertical head wear against cumulative GMT for the two monitored locations.
+
+    2. Inspection Notes
+        Item                                Observation
+        Measurement points                  9 per location (0 to 400 GMT)
+        Lubrication on curve                Gauge face lubricators installed at 150 GMT
+        Recommended action                  Plan rail renewal or grinding of curve before the wear limit is reached
+
+
+
+
+ENGG/RAILWEAR/2026/07 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                         Page 1
+

@@ -21,6 +21,8 @@ from open_notebook.utils.context_builder import (
 )
 from open_notebook.utils.error_classifier import classify_error
 from open_notebook.utils.mermaid import mermaid_instruction_for_messages
+from open_notebook.utils.vega_lite import vega_lite_instruction_for_messages
+from open_notebook.utils.visualization_formats import DEFAULT_VISUALIZATION_INSTRUCTION
 from open_notebook.utils.python_plot import python_plot_instruction_for_messages
 from open_notebook.utils.text_utils import extract_text_content
 
@@ -151,12 +153,16 @@ def _call_model_with_source_context_inner(
     )
     messages = state.get("messages", [])
     payload = [SystemMessage(content=system_prompt)]
+    payload.append(SystemMessage(content=DEFAULT_VISUALIZATION_INSTRUCTION))
     mermaid_instruction = mermaid_instruction_for_messages(messages)
     if mermaid_instruction:
         payload.append(SystemMessage(content=mermaid_instruction))
     python_plot_instruction = python_plot_instruction_for_messages(messages)
     if python_plot_instruction:
         payload.append(SystemMessage(content=python_plot_instruction))
+    vega_lite_instruction = vega_lite_instruction_for_messages(messages)
+    if vega_lite_instruction:
+        payload.append(SystemMessage(content=vega_lite_instruction))
     payload.extend(messages)
 
     # Handle async model provisioning from sync context

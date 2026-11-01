@@ -1,0 +1,132 @@
+[
+  {
+    "id": "q01",
+    "question": "What is the maximum sectional speed for this inspection section?",
+    "reference_answer": "110 km/h for passenger traffic and 75 km/h for goods traffic",
+    "answer": "Based on the track inspection report for the Bengaluru City (SBC) - Whitefield (WFD) inspection section, the maximum sectional speed is **110 km/h** for passenger trains and **75 km/h** for goods trains [source:4ydyeu66k8fqelxpjqk4].",
+    "raw": {
+      "answer": "Based on the track inspection report for the Bengaluru City (SBC) - Whitefield (WFD) inspection section, the maximum sectional speed is **110 km/h** for passenger trains and **75 km/h** for goods trains [source:4ydyeu66k8fqelxpjqk4].",
+      "question": "What is the maximum sectional speed for this inspection section?"
+    },
+    "latency_seconds": 4.7473538439999174,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q02",
+    "question": "Which high-priority defect was recorded at km 12.400 and what action is required?",
+    "reference_answer": "D-01: gauge widening to 1681 mm; re-gauge and replace worn liners within 7 days",
+    "answer": "Based on the track inspection records, the high-priority defect recorded at kilometer 12.400 (UP) is **gauge widening/exceeding the limit**, with a gauge measurement of 1681 mm (along with a cross-level of +7 mm, twist of 9 mm, and alignment of 6 mm) [source:4ydyeu66k8fqelxpjqk4].\n\n**Required Action:**\n* Re-gauge the track and replace worn liners [source:4ydyeu66k8fqelxpjqk4].\n* Target completion: **Within 7 days** [source:4ydyeu66k8fqelxpjqk4].",
+    "raw": {
+      "answer": "Based on the track inspection records, the high-priority defect recorded at kilometer 12.400 (UP) is **gauge widening/exceeding the limit**, with a gauge measurement of 1681 mm (along with a cross-level of +7 mm, twist of 9 mm, and alignment of 6 mm) [source:4ydyeu66k8fqelxpjqk4].\n\n**Required Action:**\n* Re-gauge the track and replace worn liners [source:4ydyeu66k8fqelxpjqk4].\n* Target completion: **Within 7 days** [source:4ydyeu66k8fqelxpjqk4].",
+      "question": "Which high-priority defect was recorded at km 12.400 and what action is required?"
+    },
+    "latency_seconds": 4.695150393000404,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q03",
+    "question": "What supply voltage and continuous wheel power are specified for the electric locomotive?",
+    "reference_answer": "25 kV AC, 50 Hz single-phase supply and 9000 HP (6120 kW) continuous wheel power",
+    "answer": "Based on the technical specifications for the electric locomotive, the specified values are:\n\n* **Supply voltage:** 25 kV AC, 50 Hz single phase [source:kzidcomvt4nj8dtnunjr]\n* **Continuous power at wheel:** 9000 HP (6120 kW) [source:kzidcomvt4nj8dtnunjr]",
+    "raw": {
+      "answer": "Based on the technical specifications for the electric locomotive, the specified values are:\n\n* **Supply voltage:** 25 kV AC, 50 Hz single phase [source:kzidcomvt4nj8dtnunjr]\n* **Continuous power at wheel:** 9000 HP (6120 kW) [source:kzidcomvt4nj8dtnunjr]",
+      "question": "What supply voltage and continuous wheel power are specified for the electric locomotive?"
+    },
+    "latency_seconds": 50.93415938199996,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q04",
+    "question": "What vital processor architecture and safety integrity level are specified?",
+    "reference_answer": "2-out-of-2 vital processor architecture with hot standby redundancy and SIL-4",
+    "answer": "Based on the provided documents, the specified vital processor architecture and safety integrity level are:\n\n* **Processor Architecture:** 2-out-of-2 (2oo2) vital processor architecture with hot-standby redundancy [source:nanf7p67076xvmjgqqdq].\n* **Safety Integrity Level (SIL):** SIL-4, conforming to standards EN 50126, EN 50128, and EN 50129 [source:nanf7p67076xvmjgqqdq].",
+    "raw": {
+      "answer": "Based on the provided documents, the specified vital processor architecture and safety integrity level are:\n\n* **Processor Architecture:** 2-out-of-2 (2oo2) vital processor architecture with hot-standby redundancy [source:nanf7p67076xvmjgqqdq].\n* **Safety Integrity Level (SIL):** SIL-4, conforming to standards EN 50126, EN 50128, and EN 50129 [source:nanf7p67076xvmjgqqdq].",
+      "question": "What vital processor architecture and safety integrity level are specified?"
+    },
+    "latency_seconds": 5.863239994000196,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q05",
+    "question": "What is the minimum brake power required for the rake as a whole?",
+    "reference_answer": "90 percent",
+    "answer": "Based on the coach pre-departure examination procedures, the minimum brake power required for the rake as a whole is **90%** [source:ykbi0vxbixafqf4n8446].",
+    "raw": {
+      "answer": "Based on the coach pre-departure examination procedures, the minimum brake power required for the rake as a whole is **90%** [source:ykbi0vxbixafqf4n8446].",
+      "question": "What is the minimum brake power required for the rake as a whole?"
+    },
+    "latency_seconds": 5.225237326999832,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q06",
+    "question": "What minimum tensile strength is specified for 90 UTS rail grade?",
+    "reference_answer": "880 MPa",
+    "answer": "The specified minimum tensile strength for the 90 UTS rail grade is **880 MPa** [source:219bsnh27zc790fd5dru].",
+    "raw": {
+      "answer": "The specified minimum tensile strength for the 90 UTS rail grade is **880 MPa** [source:219bsnh27zc790fd5dru].",
+      "question": "What minimum tensile strength is specified for 90 UTS rail grade?"
+    },
+    "latency_seconds": 4.822181772000022,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q07",
+    "question": "Where and at what kilometre did the incident occur?",
+    "reference_answer": "At Km 214/6-8, between fictional Station A and Station B",
+    "answer": "Based on the incident investigation report, the incident occurred at **Km 214/6-8**, located between Station A and Station B [source:tsmnhx3axgjanxy1zr7i].",
+    "raw": {
+      "answer": "Based on the incident investigation report, the incident occurred at **Km 214/6-8**, located between Station A and Station B [source:tsmnhx3axgjanxy1zr7i].",
+      "question": "Where and at what kilometre did the incident occur?"
+    },
+    "latency_seconds": 5.345966366000084,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q08",
+    "question": "How many track measurement points are recorded as compliant in the summary, and what percentage is reported?",
+    "reference_answer": "18 points, 45 percent",
+    "answer": "Based on the track geometry summary, there are **18** track measurement points recorded as compliant out of a total of 40 points, which represents **45%** (reported as $0.45$ in the summary) [source:92aax7q7ojutl8b58g6t].",
+    "raw": {
+      "answer": "Based on the track geometry summary, there are **18** track measurement points recorded as compliant out of a total of 40 points, which represents **45%** (reported as $0.45$ in the summary) [source:92aax7q7ojutl8b58g6t].",
+      "question": "How many track measurement points are recorded as compliant in the summary, and what percentage is reported?"
+    },
+    "latency_seconds": 4.701908000000003,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q09",
+    "question": "How many locomotives are covered by the maintenance schedule and what is the fleet total?",
+    "reference_answer": "Thirty locomotives",
+    "answer": "Based on the Electric Locomotive Maintenance Schedule Tracker, there are a total of **30** locomotives covered by the maintenance schedule, which also represents the total fleet count [source:px0aupaw8wtbl9d33uxz]. \n\nHere is the breakdown of the fleet by shed:\n* **Shed-A:** 9 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Shed-B:** 7 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Shed-C:** 14 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Fleet Total:** 30 locomotives [source:px0aupaw8wtbl9d33uxz]",
+    "raw": {
+      "answer": "Based on the Electric Locomotive Maintenance Schedule Tracker, there are a total of **30** locomotives covered by the maintenance schedule, which also represents the total fleet count [source:px0aupaw8wtbl9d33uxz]. \n\nHere is the breakdown of the fleet by shed:\n* **Shed-A:** 9 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Shed-B:** 7 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Shed-C:** 14 locomotives [source:px0aupaw8wtbl9d33uxz]\n* **Fleet Total:** 30 locomotives [source:px0aupaw8wtbl9d33uxz]",
+      "question": "How many locomotives are covered by the maintenance schedule and what is the fleet total?"
+    },
+    "latency_seconds": 5.491092881999975,
+    "http_ok": true,
+    "human_score": "correct"
+  },
+  {
+    "id": "q10",
+    "question": "What asset type is recorded for asset COL-013, and is replacement due?",
+    "reference_answer": "A colour light signal made by LED 3-aspect; replacement is due",
+    "answer": "Based on the asset register, asset **COL-013** is a **Colour Light Signal** (specifically, an LED 3-aspect signal) [source:c5hy4hg9u78t3m6lxm6v]. \n\nRegarding its replacement status, a replacement **is due** (recorded with a \"Yes\" status and a \"Poor\" condition rating) [source:c5hy4hg9u78t3m6lxm6v].",
+    "raw": {
+      "answer": "Based on the asset register, asset **COL-013** is a **Colour Light Signal** (specifically, an LED 3-aspect signal) [source:c5hy4hg9u78t3m6lxm6v]. \n\nRegarding its replacement status, a replacement **is due** (recorded with a \"Yes\" status and a \"Poor\" condition rating) [source:c5hy4hg9u78t3m6lxm6v].",
+      "question": "What asset type is recorded for asset COL-013, and is replacement due?"
+    },
+    "latency_seconds": 49.2351993379998,
+    "http_ok": true,
+    "human_score": "correct"
+  }
+]

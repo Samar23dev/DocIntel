@@ -5,13 +5,6 @@ When the user asks for a Matplotlib chart, graph, plot, TikZ/PGFPlots figure, or
 
 
 def python_plot_instruction_for_messages(messages: list) -> str | None:
-    for message in reversed(messages):
-        if isinstance(message, HumanMessage):
-            text = message.content if isinstance(message.content, str) else str(message.content)
-            normalized = text.lower()
-            chart_terms = ("chart", "graph", "plot", "histogram", "scatter", "bar chart", "line chart", "pie chart", "tikz", "pgfplots", "tikzpicture")
-            requests_plot = any(word in normalized for word in ("create", "draw", "generate", "make", "show", "plot", "chart", "convert", "render", "use"))
-            if any(term in normalized for term in chart_terms) and requests_plot:
-                return PYTHON_PLOT_INSTRUCTION
-            return None
+    # Matplotlib/Python chat generation is temporarily disabled so charts can
+    # be evaluated through safer declarative Vega-Lite output first.
     return None

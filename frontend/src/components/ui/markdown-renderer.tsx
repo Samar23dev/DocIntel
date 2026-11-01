@@ -9,6 +9,8 @@ import { useThemeStore } from '@/lib/stores/theme-store'
 import { KATEX_OPTIONS } from '@/lib/utils/katex-options'
 import { MermaidDiagram } from '@/components/ui/mermaid-diagram'
 import { PythonPlot } from '@/components/ui/python-plot'
+import { VegaChart } from '@/components/ui/vega-chart'
+import { GraphvizDiagram } from '@/components/ui/graphviz-diagram'
 import { oneDark as darkTheme } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { oneLight as lightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism'
 // PrismLight with an explicit language set instead of the full Prism build:
@@ -57,13 +59,21 @@ type Components = {
   [Key in Extract<ElementType, string>]?: ElementType<ComponentProps<Key> & ExtraProps>
 }
 
-export function MarkdownRenderer({ children, components = {}}: { children: React.ReactNode , components?: Components }) {
+export function MarkdownRenderer({
+  children,
+  components = {},
+  onVisualizationRegenerate,
+}: {
+  children: React.ReactNode
+  components?: Components
+  onVisualizationRegenerate?: (code: string, format: 'mermaid' | 'vega-lite' | 'dot' | 'python-plot') => void
+}) {
 
   const { getEffectiveTheme } = useThemeStore()
   const isDark = getEffectiveTheme() === 'dark'
 
   return (
-    <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none break-words prose-headings:font-semibold prose-a:text-primary prose-a:break-all prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-transparent prose-p:mb-4 prose-p:leading-7 prose-li:mb-2">
+    <div className="prose prose-sm prose-neutral dark:prose-invert max-w-none min-w-0 overflow-x-hidden break-words prose-headings:font-semibold prose-a:text-primary prose-a:break-all prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-transparent prose-p:mb-4 prose-p:leading-7 prose-li:mb-2 [&_svg]:max-w-full [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto">
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
           rehypePlugins={[[rehypeKatex, KATEX_OPTIONS]]}
@@ -91,10 +101,16 @@ export function MarkdownRenderer({ children, components = {}}: { children: React
             code: ({ children, className }) => {
               const match = /language-([\w-]+)/.exec(className || '')
               if (match?.[1].toLowerCase() === 'mermaid') {
-                return <MermaidDiagram code={String(children)} />
+                return <MermaidDiagram code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'mermaid') => onVisualizationRegenerate(String(children), format) : undefined} />
               }
               if (match?.[1].toLowerCase() === 'python-plot') {
                 return <PythonPlot code={String(children)} />
+              }
+              if (match?.[1].toLowerCase() === 'vega-lite' || match?.[1].toLowerCase() === 'vega') {
+                return <VegaChart code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'vega-lite') => onVisualizationRegenerate(String(children), format) : undefined} />
+              }
+              if (match?.[1].toLowerCase() === 'dot' || match?.[1].toLowerCase() === 'graphviz') {
+                return <GraphvizDiagram code={String(children)} onRegenerate={onVisualizationRegenerate ? (format = 'dot') => onVisualizationRegenerate(String(children), format) : undefined} />
               }
               const isBlock = match || String(children).includes('\n')
               return isBlock ? (

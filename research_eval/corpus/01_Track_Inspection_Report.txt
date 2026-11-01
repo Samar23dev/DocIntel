@@ -1,0 +1,89 @@
+                           TRACK INSPECTION REPORT
+ Section: Bengaluru City (SBC) - Whitefield (WFD) | Double Line, BG 1676 mm
+
+ Document No.                         SWR/ENGG/TIR/2026/0412
+ Inspection Date                      14 October 2026
+ Inspecting Official                  Sr. DEN/Co-ordination (fictional)
+ Section Length                       Km 0.000 to Km 21.350 (UP and DN lines)
+ Max. Sectional Speed                 110 km/h (Goods 75 km/h)
+ Traffic Density                      24.6 GMT/annum
+
+ 1. Scope and Purpose
+ This report records the findings of the periodic track inspection carried out as per the Indian Railways
+ Schedule of Dimensions and the Indian Railways Permanent Way Manual (IRPWM). The inspection
+ covered rails, sleepers, fastenings, ballast profile, drainage, curves, turnouts, and level crossings.
+
+ 2. Track Structure Summary
+ Parameter                  Specification                    Observed                           Status
+ Rail section               60 kg/m, 90 UTS                  60 kg/m, 90 UTS                    Compliant
+ Sleepers                   PSC, 1660/km (M+7)               1660/km                            Compliant
+                            Elastic Rail Clip (ERC)
+ Fastening                                                   ERC Mk-III, 3 missing at Km 7.2    Action required
+                            Mk-III
+ Ballast depth              350 mm below sleeper             320-360 mm                         Deficient at 2 locations
+                                                                                                Within tolerance except Km
+ Gauge (nominal)            1676 mm (+6 / -3 mm)             1673 to 1680 mm
+                                                                                                12.4
+ Welding                    SWR, LWR, 130 m panels           LWR throughout                     Compliant
+
+
+ 3. Geometry Measurements (Track Recording Car Data)
+                                 Cross-level
+ Km              Gauge (mm)                             Twist (mm/3.6m)        Alignment (mm)     Remark
+                                 (mm)
+ 2.150           1676            +2                     3                      2                  OK
+ 5.600           1675            -3                     4                      3                  OK
+ 7.200           1678            +4                     6                      4                  Monitor
+ 9.850           1677            -2                     5                      3                  OK
+                                                                                                  Gauge exceeds limit -
+ 12.400          1681            +7                     9                      6
+                                                                                                  attend within 7 days
+ 15.300          1674            +1                     3                      2                  OK
+ 18.750          1676            -3                     4                      5                  OK
+
+
+ 4. Defects and Recommended Actions
+ Ref         Location                 Defect                              Priority       Action / Target
+                                                                                         Re-gauge, replace worn liners - 7
+ D-01        Km 12.400 UP             Gauge widening to 1681 mm           High
+                                                                                         days
+ D-02        Km 7.200 DN              3 ERC missing, 2 loose              Medium         Replenish and tighten - 15 days
+                                                                                         Ballast supplement 180 cum - 30
+ D-03        Km 3.050 - 3.200         Ballast starved shoulder            Medium
+                                                                                         days
+ D-04        Km 16.800 LC-41          Rubber pad wear at level crossing   Low            Replace during next block - 45 days
+
+
+
+
+SWR/ENGG/TIR/2026/0412 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                             Page 1
+ 5. Curve Register Extract
+   Curve                                                               Cant        Cant Deficiency         Speed
+              Km Range          Direction        Radius (m)   Degree
+   No.                                                                 (mm)        (mm)                    (km/h)
+   C-3        4.100-4.620       LH               900          1.94     65          55                      85
+   C-7        8.300-8.900       RH               1200         1.45     50          60                      95
+   C-11       13.200-13.750     LH               650          2.68     80          75                      75
+   C-14       17.050-17.300     RH               1500         1.16     40          45                      110
+ Formula used for equilibrium speed: Vmax = 0.27 x sqrt((Ca + Cd) x R), where Ca is applied cant and Cd is
+ permissible cant deficiency, both in mm, and R is radius in metres.
+
+ 6. Level Crossing Status
+ LC No.      Km             Class           Interlocked       TVU (x1000)     Remark
+ LC-38       14.220         Special         Yes               42.1            Boom and lights functional
+ LC-41       16.800         A               Yes               28.7            Pad replacement due
+ LC-44       19.500         B               No                11.4            Proposed for ROB
+
+
+ Remarks: Overall track condition is satisfactory. Priority defects D-01 and D-02 to be attended and
+ compliance reported to the Divisional office.
+
+
+
+ Signed: ____________________                Date: 14-10-2026
+
+
+
+
+SWR/ENGG/TIR/2026/0412 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                      Page 2
+

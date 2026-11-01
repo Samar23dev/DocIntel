@@ -1,0 +1,114 @@
+[
+  {
+    "document_id": "01_Track_Inspection_Report",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/01_Track_Inspection_Report.pdf",
+    "source_sha256": "b185c20e06788b740cbbbc63bb5658303cddd6fb25714f4b60663cc4ed7f7f08",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/01_Track_Inspection_Report.txt",
+    "characters": 5889,
+    "words": 492
+  },
+  {
+    "document_id": "02_Locomotive_Maintenance_Manual",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/02_Locomotive_Maintenance_Manual.pdf",
+    "source_sha256": "6fd2d1c308e1fbb8f6882153d21eae437c2b0b92d83b6f061dc21d4ebbeb5bd0",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/02_Locomotive_Maintenance_Manual.txt",
+    "characters": 6266,
+    "words": 538
+  },
+  {
+    "document_id": "03_Signalling_Interlocking_Spec",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/03_Signalling_Interlocking_Spec.pdf",
+    "source_sha256": "d4d69865fd29205097327047beac6dcb33ce2f50e339da7add5fa8b42ce4cfb6",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/03_Signalling_Interlocking_Spec.txt",
+    "characters": 4776,
+    "words": 485
+  },
+  {
+    "document_id": "04_SOP_Coach_PreDeparture_Examination",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/04_SOP_Coach_PreDeparture_Examination.docx",
+    "source_sha256": "bd7ab3248fc815311ca0e7b3d618110146fac4c8f7af6ba445869cccc489cfe1",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/04_SOP_Coach_PreDeparture_Examination.txt",
+    "characters": 3133,
+    "words": 470
+  },
+  {
+    "document_id": "05_TechSpec_Rail_Flash_Butt_Welding",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/05_TechSpec_Rail_Flash_Butt_Welding.docx",
+    "source_sha256": "8deafac2ef1289d4c114da5fa7433cfc04c2339df569e82113283eb54f4b1483",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/05_TechSpec_Rail_Flash_Butt_Welding.txt",
+    "characters": 2811,
+    "words": 462
+  },
+  {
+    "document_id": "06_Incident_Investigation_Report_SPAD",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/06_Incident_Investigation_Report_SPAD.docx",
+    "source_sha256": "a403d1eaef4dc91009c46c053151aaa8f0c1bdfb47e60228141dd05c1f47e163",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/06_Incident_Investigation_Report_SPAD.txt",
+    "characters": 3435,
+    "words": 516
+  },
+  {
+    "document_id": "07_Track_Geometry_Log",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/07_Track_Geometry_Log.xlsx",
+    "source_sha256": "0211fe171757b0b1546f37514cd945e472d8421cbfc5dcc60c73dacd9d4acadc",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/07_Track_Geometry_Log.txt",
+    "characters": 2835,
+    "words": 665
+  },
+  {
+    "document_id": "08_Loco_Maintenance_Schedule",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/08_Loco_Maintenance_Schedule.xlsx",
+    "source_sha256": "3003f299cdc7ebe54c0992eac328699e792b26c1397880fb16d94475df542807",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/08_Loco_Maintenance_Schedule.txt",
+    "characters": 2925,
+    "words": 482
+  },
+  {
+    "document_id": "09_Signal_Asset_Register_Timetable",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/09_Signal_Asset_Register_Timetable.xlsx",
+    "source_sha256": "84ea9fdf71bad1f2df98fc52710a6385a05aaca3108a2f87750f4cdff7ffd857",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/09_Signal_Asset_Register_Timetable.txt",
+    "characters": 3841,
+    "words": 632
+  },
+  {
+    "document_id": "10_Monthly_Punctuality_Report",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/10_Monthly_Punctuality_Report.pdf",
+    "source_sha256": "ec8de07edf8bdc6cb371242c2e01a7bcdb7d946a7c07f701c0684b78c84fc3b1",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/10_Monthly_Punctuality_Report.txt",
+    "characters": 1500,
+    "words": 145
+  },
+  {
+    "document_id": "11_Rail_Wear_Tonnage_Report",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/11_Rail_Wear_Tonnage_Report.pdf",
+    "source_sha256": "71fd33f43a5306a12b7c2fefc3c701af9c9bb21355e44070d520437726a3f942",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/11_Rail_Wear_Tonnage_Report.txt",
+    "characters": 1203,
+    "words": 138
+  },
+  {
+    "document_id": "12_Freight_Loading_Summary",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/12_Freight_Loading_Summary.pdf",
+    "source_sha256": "33418dddc20d94a213971afafd1fa5b994860a3bd7161d4357dbce6549f4a09b",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/12_Freight_Loading_Summary.txt",
+    "characters": 1037,
+    "words": 84
+  },
+  {
+    "document_id": "13_Operations_Dashboard_Q2",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/13_Operations_Dashboard_Q2.pdf",
+    "source_sha256": "b949c9f5f35b95956fb0ccf16fd5f7d7f786dbba4b2e4eec151abe6ad2cb57ff",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/13_Operations_Dashboard_Q2.txt",
+    "characters": 1668,
+    "words": 140
+  },
+  {
+    "document_id": "14_Station_Yard_Layout_Diagram",
+    "source": "/home/samar/Documents/ResearchPaper7/sampledocs/14_Station_Yard_Layout_Diagram.pdf",
+    "source_sha256": "6ebb620e44de0eac1a3b1eb294c13e01fc452f14a92d68654956206dc30913d7",
+    "extracted_text": "/home/samar/Documents/ResearchPaper7/DocIntel/research_eval/corpus/14_Station_Yard_Layout_Diagram.txt",
+    "characters": 1757,
+    "words": 189
+  }
+]

@@ -1,0 +1,54 @@
+[Sheet: Signal Asset Register]
+Signalling Asset Register - Sample Junction
+Synthetic sample data
+Reference date: 31-Oct-2026 (hard-coded in Age formula)
+Asset ID	Asset Type	Location (Km)	Make/Type	Install Date	Design Life (yrs)	Age (yrs)	Remaining Life (yrs)	Last Maintenance	Condition	Replacement Due?
+COL-001	Colour Light Signal	0.99	LED 3-aspect	36173	15	27.8	-12.8	46229	Fair	YES
+POI-002	Point Machine	2.54	Electric 3-phase	39442	20	18.8	1.2	46287	Fair	YES
+TRA-003	Track Circuit	1.14	Audio frequency	37348	15	24.6	-9.6	46289	Poor	YES
+AXL-004	Axle Counter	4.49	Digital single section	36162	15	27.8	-12.8	46281	Poor	YES
+REL-005	Relay	0.94	Q-series	41885	25	12.2	12.8	46176	Poor	YES
+SIG-006	Signal Cable	4.05	Quad armoured	36629	30	26.5	3.5	46161	Good	NO
+COL-007	Colour Light Signal	3.57	LED 3-aspect	42646	15	10.1	4.9	46256	Poor	YES
+POI-008	Point Machine	3.14	Electric 3-phase	42497	20	10.5	9.5	46318	Good	NO
+TRA-009	Track Circuit	1.59	Audio frequency	38433	15	21.6	-6.6	46305	Fair	YES
+AXL-010	Axle Counter	5.57	Digital single section	39479	15	18.7	-3.7	46254	Poor	YES
+REL-011	Relay	0.44	Q-series	36998	25	25.5	-0.5	46208	Good	YES
+SIG-012	Signal Cable	5.28	Quad armoured	36687	30	26.4	3.6	46188	Poor	YES
+COL-013	Colour Light Signal	1.82	LED 3-aspect	44152	15	6	9	46164	Poor	YES
+POI-014	Point Machine	5.59	Electric 3-phase	39118	20	19.7	0.300000000000001	46207	Good	YES
+TRA-015	Track Circuit	3.32	Audio frequency	44326	15	5.5	9.5	46272	Good	NO
+AXL-016	Axle Counter	4.12	Digital single section	38124	15	22.5	-7.5	46243	Good	YES
+REL-017	Relay	3.81	Q-series	36648	25	26.5	-1.5	46153	Good	YES
+SIG-018	Signal Cable	5.88	Quad armoured	43183	30	8.6	21.4	46252	Fair	NO
+COL-019	Colour Light Signal	0.06	LED 3-aspect	42058	15	11.7	3.3	46191	Good	NO
+POI-020	Point Machine	2.22	Electric 3-phase	45540	20	2.2	17.8	46239	Good	NO
+TRA-021	Track Circuit	2.19	Audio frequency	39094	15	19.8	-4.8	46195	Good	YES
+AXL-022	Axle Counter	0.62	Digital single section	43736	15	7.1	7.9	46254	Good	NO
+REL-023	Relay	5.19	Q-series	38425	25	21.6	3.4	46148	Good	NO
+SIG-024	Signal Cable	5.58	Quad armoured	45258	30	2.9	27.1	46321	Good	NO
+COL-025	Colour Light Signal	0.96	LED 3-aspect	39055	15	19.9	-4.9	46262	Good	YES
+POI-026	Point Machine	1.33	Electric 3-phase	41498	20	13.2	6.8	46230	Good	NO
+TRA-027	Track Circuit	0.14	Audio frequency	38455	15	21.5	-6.5	46212	Good	YES
+AXL-028	Axle Counter	1.67	Digital single section	44882	15	4	11	46256	Poor	YES
+REL-029	Relay	5.64	Q-series	39487	25	18.7	6.3	46192	Good	NO
+SIG-030	Signal Cable	0.65	Quad armoured	36353	30	27.3	2.7	46321	Good	NO
+COL-031	Colour Light Signal	3.64	LED 3-aspect	40790	15	15.2	-0.199999999999999	46253	Good	YES
+POI-032	Point Machine	0.27	Electric 3-phase	38899	20	20.3	-0.300000000000001	46291	Poor	YES
+TRA-033	Track Circuit	4.32	Audio frequency	43823	15	6.9	8.1	46302	Good	NO
+AXL-034	Axle Counter	0.42	Digital single section	40858	15	15	0	46276	Good	YES
+REL-035	Relay	5.4	Q-series	44449	25	5.1	19.9	46309	Good	NO
+SIG-036	Signal Cable	4.18	Quad armoured	40426	30	16.2	13.8	46187	Fair	NO
+[Sheet: Train Timetable]
+Station Timetable Extract - Sample Junction
+Synthetic sample data | Dwell and delay computed by formula
+Train No.	Type	Origin	Destination	Platform	Arrival	Departure	Dwell (min)	Delay (min)	Status
+12601	Express	SBC	MAS	4	0.215277777777778	0.222222222222222	10	25	Late
+12627	Superfast	SBC	NDLS	3	0.291666666666667	0.298611111111111	10	0	On time
+16525	Express	SBC	CAPE	4	0.399305555555556	0.40625	10	12	Minor delay
+06521	Special	SBC	JTJ	5	0.482638888888889	0.486111111111111	5	12	Minor delay
+22692	Rajdhani	SBC	NZM	3	0.548611111111111	0.55	2	25	Late
+16231	Express	SBC	MYS	1	0.659722222222222	0.666666666666667	10	0	On time
+12007	Shatabdi	MAS	SBC	2	0.722222222222222	0.725694444444444	5	0	On time
+56512	Passenger	SBC	BWT	2	0.791666666666667	0.793055555555556	2	12	Minor delay
+Average delay (min):	10.75

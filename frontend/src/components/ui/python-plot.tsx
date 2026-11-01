@@ -9,6 +9,11 @@ function sanitizeSvg(svg: string) {
   return new XMLSerializer().serializeToString(document.documentElement)
 }
 
+function displayError(reason: unknown) {
+  if (reason instanceof Error && reason.message) return reason.message
+  return 'Plot generation failed.'
+}
+
 export function PythonPlot({ code }: { code: string }) {
   const [svg, setSvg] = useState('')
   const [error, setError] = useState('')
@@ -28,7 +33,7 @@ export function PythonPlot({ code }: { code: string }) {
       if (!response.ok) throw new Error(data.detail || 'Plot generation failed')
       if (!cancelled) setSvg(sanitizeSvg(data.svg))
     }).catch((reason) => {
-      if (!cancelled) setError(reason instanceof Error ? reason.message : 'Plot generation failed')
+      if (!cancelled) setError(displayError(reason))
     })
 
     return () => { cancelled = true }
@@ -37,8 +42,8 @@ export function PythonPlot({ code }: { code: string }) {
   if (error) {
     return (
       <div className="my-4 overflow-x-auto rounded-md border border-destructive/40 bg-muted p-3">
-        <p className="mb-2 text-sm text-destructive">Could not generate this plot: {error}</p>
-        <pre className="text-sm"><code>{code}</code></pre>
+        <p className="mb-2 break-words text-sm text-destructive">Could not generate this plot: {error}</p>
+        <pre className="max-w-full overflow-x-auto whitespace-pre-wrap break-words text-sm"><code>{code}</code></pre>
       </div>
     )
   }
@@ -57,11 +62,12 @@ export function PythonPlot({ code }: { code: string }) {
   return (
     <div className="my-4 rounded-md border border-border bg-card">
       <div className="flex justify-end gap-2 border-b border-border px-3 py-2">
+        <span className="mr-auto rounded-full bg-muted px-2 py-1 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">Python</span>
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => download(svg, 'docintel-chart.svg', 'image/svg+xml')}><Download className="size-3.5" />Image</button>
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => download(code.trim(), 'docintel-chart.py', 'text/x-python')}><Download className="size-3.5" />Code</button>
         <button type="button" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground" onClick={() => { navigator.clipboard.writeText(code.trim()); setCopied(true); window.setTimeout(() => setCopied(false), 1500) }}>{copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}{copied ? 'Copied' : 'Copy'}</button>
       </div>
-      <div className="overflow-x-auto p-3 [&>svg]:mx-auto [&>svg]:max-w-full" dangerouslySetInnerHTML={{ __html: svg }} />
+      <div className="w-full max-w-full overflow-x-auto p-3 [&>svg]:mx-auto [&>svg]:block [&>svg]:h-auto [&>svg]:max-w-full [&>svg]:min-w-[320px]" dangerouslySetInnerHTML={{ __html: svg }} />
     </div>
   )
 }

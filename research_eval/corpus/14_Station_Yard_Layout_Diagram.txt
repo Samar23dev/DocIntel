@@ -1,0 +1,28 @@
+                                         STATION YARD LAYOUT AND ROUTE CHART
+Sample Junction (fictional) - 4 running lines, 2 island platforms, 1 level crossing
+
+
+
+
+                                               Figure 1: Schematic yard diagram with signals, points, track circuits, platforms and level crossing.
+
+
+
+
+S&T/YARD/SMJ/Rev2 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                                                             Page 1
+Route Chart
+       Route        From          To            Points (N = normal, R = reverse)                  Track circuits to be clear
+       R1           S1            S5            P1 N, P4 N                                        T1, T2, T3, T4, T5
+       R2           S1            S6            P1 R, P4 N                                        T1, T2, T7, T8, T9, T10
+       R3           S2            S6            P1 N, P3 N, P4 N, P6 N                            T6, T7, T8, T9, T10
+       R4           S3            S7            P2 N, P3 N, P5 N, P6 N                            T11, T12, T13, T14, T15
+       R5           S4            S8            P2 N, P5 N                                        T16, T17, T18, T19, T20
+       R6           S3            S8            P2 N, P3 N, P5 R                                  T11, T12, T13, T14, T19, T20
+       R7           S2            S5            P1 N, P4 R                                        T6, T7, T8, T9, T4, T5
+Note: Down-direction routes are interlocked by mirror-image logic and are listed in the full interlocking table (ref. S&T/EI/SPEC/2026/017).
+
+
+
+
+S&T/YARD/SMJ/Rev2 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                                                      Page 2
+

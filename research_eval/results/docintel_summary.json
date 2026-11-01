@@ -1,0 +1,20 @@
+{
+  "model": "DocIntel / Gemini 3.5 Flash Lite",
+  "questions": 10,
+  "correct": 10,
+  "incorrect": 0,
+  "provider_errors": 0,
+  "mean_latency_seconds": 14.10614892980002,
+  "results": {
+    "q01": "correct",
+    "q02": "correct",
+    "q03": "correct",
+    "q04": "correct",
+    "q05": "correct",
+    "q06": "correct",
+    "q07": "correct",
+    "q08": "correct",
+    "q09": "correct",
+    "q10": "correct"
+  }
+}

@@ -1,0 +1,28 @@
+                                           OPERATIONS DASHBOARD - Q2 FY 2026-27
+Consolidated punctuality, delay attribution, signal reliability and speed indicators (fictional data).
+
+
+
+
+                               Figure 1: Four-panel operations dashboard (A: dual-axis combo, B: stacked bars, C: heatmap, D: line chart with shaded target band).
+
+
+
+
+OPS/DASH/Q2FY2627 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                                                                            Page 1
+Key Observations
+1. Delay attributable to signal and loco failures together accounted for the majority of lost train-hours across the four divisions.
+2. Signal failures were concentrated in a limited number of sections; maintenance blitz is planned for the two worst-performing sections in Q3.
+3. Freight average speed stayed close to the target band throughout the quarter while coaching speeds remained stable.
+
+                                                Division            Full Name                               Route Km
+                                                SBC                 Bengaluru                               1,013
+                                                MYS                 Mysuru                                  689
+                                                UBL                 Hubballi                                1,142
+                                                GTL                 Guntakal                                845
+
+
+
+
+OPS/DASH/Q2FY2627 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                                                         Page 2
+

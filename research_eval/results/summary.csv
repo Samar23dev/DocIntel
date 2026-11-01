@@ -1,0 +1,6 @@
+model,responses,correct,partial,incorrect,ungraded,reference_answer_contained,usable_responses,provider_failures,provider_exit_anomalies,mean_latency_seconds
+GLM 5.3 Flash Free,10,2,0,0,8,0,2,,,3.121
+Nemotron 3.5 Lightning Free,10,2,0,0,8,0,2,,,8.922
+Nemotron 3.5 Super VL Free,10,2,0,0,8,0,2,,1,26.148
+Cohere North Mini Code Free,10,8,0,0,2,1,8,2,,2.994
+Thinking Machines Inkling Small Free,10,10,0,0,0,1,10,,,2.796

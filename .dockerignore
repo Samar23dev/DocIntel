@@ -51,3 +51,16 @@ docs
 *.swo
 *~
 .DS_Store
+AGENTS.md
+CLAUDE.md
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc

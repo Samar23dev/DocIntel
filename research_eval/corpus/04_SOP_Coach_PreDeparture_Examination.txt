@@ -1,0 +1,91 @@
+Standard Operating Procedure: Coaching Stock Pre-Departure Examination
+Document No.: SOP/C&W/PDE/2026/08     Revision: 03     Effective: 01 October 2026
+Field
+Details
+Department
+Carriage & Wagon (Mechanical)
+Applicable To
+Passenger rakes: LHB and ICF coaches
+Approved By
+Sr. Divisional Mechanical Engineer (fictional)
+Review Cycle
+12 months
+1. Purpose
+This SOP defines the mandatory examination of coaching stock before a rake is released for service. It aims to ensure that no rake with a safety-critical defect leaves the primary maintenance depot.
+2. Scope
+The procedure applies to all originating passenger trains with a booked speed above 80 km/h and covers under-gear, bogie, brake system, couplers, doors, electrical and fire-safety items.
+3. Responsibilities
+Role
+Responsibility
+Train Examiner (TXR)
+Carry out examination, record defects, issue Fit-to-Run certificate
+Senior Section Engineer (C&W)
+Supervise TXR, approve rectification of Class A defects
+Loco Pilot
+Verify brake continuity test and sign Brake Power Certificate
+Station Master
+Release train only after receipt of Fit-to-Run memo
+4. Examination Procedure
+4.1 Preparation
+Confirm the rake is placed on a pit line with protection flags and a blue flag/light displayed.
+Verify the rake composition and coach numbers against the train consist.
+Check that the previous trip defect memos (if any) have been closed.
+4.2 Under-gear and Bogie Checks
+Inspect axle boxes for overheating, grease leakage and loose cover bolts.
+Check wheel tread for flats (limit 50 mm length), shelling and thin flange (minimum flange thickness 16 mm).
+Examine primary and secondary suspension springs for cracks or sagging.
+Verify safety straps, bolster anchor links and brake rigging cotter pins are in position.
+4.3 Brake System Tests
+The following tests shall be performed and results recorded in the Brake Power Certificate:
+Test
+Parameter
+Acceptance Criterion
+Brake pipe (BP) pressure
+At engine
+5.0 kg/cm2
+Feed pipe (FP) pressure
+At engine
+6.0 kg/cm2
+BP leakage
+1 minute after isolating
+Drop not more than 0.5 kg/cm2
+Brake application
+BP reduction of 1.0 kg/cm2
+All coaches apply within 30 s
+Brake release
+After full charge
+All coaches release within 45 s
+Brake power
+Rake as a whole
+Minimum 90%
+4.4 Coupling and Gangway
+CBC (Centre Buffer Coupler) height 1105 mm +/- 10 mm above rail level.
+Verify anti-climbers and gangway rubber bellows are intact.
+5. Defect Classification
+Class
+Description
+Action
+A
+Safety-critical (e.g. cracked axle, brake failure)
+Coach detached, no dispensation
+B
+Serious but not immediately unsafe (e.g. loose bolt, minor leakage)
+Rectify before departure
+C
+Passenger amenity (e.g. fan, light, toilet tap)
+Rectify if time permits, else record
+6. Records
+The TXR shall retain the Fit-to-Run certificate, Brake Power Certificate and defect register for a minimum of 12 months. All entries shall be digitised in the Coaching Maintenance Management System within 4 hours of departure.
+7. Revision History
+Rev.
+Date
+Description
+01
+15-Jan-2022
+Initial issue
+02
+10-Feb-2024
+Added LHB coach criteria
+03
+01-Oct-2026
+Updated brake power threshold and records retention

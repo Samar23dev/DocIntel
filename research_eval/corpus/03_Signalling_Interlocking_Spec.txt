@@ -1,0 +1,70 @@
+       SIGNALLING & INTERLOCKING TECHNICAL
+                  SPECIFICATION
+ Electronic Interlocking (EI) for Major Station Yard
+
+ Specification No.                  S&T/EI/SPEC/2026/017
+ Station                            Sample Junction (SMJ) - 6 platforms, 42 points, 58 signals
+ Safety Integrity Level             SIL-4 (EN 50126 / 50128 / 50129)
+ Issued By                          Signal & Telecom Engineering Dept. (fictional)
+
+ 1. System Overview
+ The Electronic Interlocking shall control all points, signals, track circuits and axle counters within the
+ station limits. The system shall employ a 2-out-of-2 (2oo2) vital processor architecture with hot-standby
+ redundancy and shall conform to the Railway Board approved interlocking principles. All route setting shall
+ be through VDU-based operator control with a fallback panel interface.
+
+ 2. Functional Requirements
+ Req. ID         Requirement                                                                             Verification
+ FR-001          Route shall be set only if all points are proved locked in required position            Simulation + site test
+ FR-002          Conflicting routes shall never be set simultaneously                                    Interlocking table check
+ FR-003          Signal shall revert to danger within 1.0 s of track circuit occupation ahead            Timing test
+ FR-004          Route release timer for emergency cancellation: 120 s (main), 60 s (shunt)              Functional test
+ FR-005          Approach locking for main signals, with 180 s release                                   Functional test
+ FR-006          All events logged with 10 ms timestamp resolution, retained 90 days                     Audit
+
+
+ 3. Field Equipment Parameters
+ Equipment                Type                                Rating / Setting                                   Standard
+ Signal lamp              LED, 3-aspect colour light          12 V DC, 10 W, life > 100,000 h                    RDSO
+ Point machine            Electric, 3-phase non-trailable     110 V AC, throw 143 mm, 5 s operating time         RDSO
+                                                              Frequencies 1.7 / 2.3 / 2.6 kHz, 20 m to 450
+ Track circuit            Audio Frequency, jointless                                                             RDSO
+                                                              m
+ Axle counter             Digital, single section             Wheel detector gap 5 mm min.                       IRS S 100
+ Signalling cable         Quad armoured, 1.5 sqmm             Insulation > 20 MOhm/km at 500 V DC                IRS S 63
+                                                              110 V DC, float 2.25 V/cell, 2 h battery
+ Power supply             Dual feed with SMPS                                                                    RDSO
+                                                              backup
+
+
+
+
+S&T/EI/SPEC/2026/017 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                                      Page 1
+ 4. Sample Route Interlocking Table
+ Route      From Signal        To Signal         Points Required     Tracks Clear              Conflicting Routes
+ R-01       S1                 S5                P1(N), P3(N)        T1, T2, T3                R-04, R-07
+ R-02       S1                 S6                P1(N), P3(R)        T1, T2, T4                R-05
+ R-03       S2                 S7                P2(R), P5(N)        T5, T6                    R-06, R-09
+ R-04       S3                 S5                P3(N), P6(R)        T3, T7                    R-01
+ R-05       S4                 S6                P4(N)               T4, T8                    R-02
+ N = Normal position, R = Reverse position.
+
+ 5. Testing and Commissioning
+ Stage             Test                                            Acceptance Criterion
+ Factory           Software logic verification                     100% of interlocking table matched
+ Site              Point detection and locking                     Detection lost at 3.5 mm opening
+ Site              Track circuit shunt test                        Shunt 0.5 ohm must drop relay
+ Site              Emergency route release                         Release only after timer expiry
+ Final             Independent safety assessment                   ISA certificate issued before commissioning
+
+
+ 6. Reliability Targets
+ System availability shall be not less than 99.995%. Mean Time Between Wrong-Side Failures (MTBWSF)
+ shall exceed 109 hours. Mean Time To Repair (MTTR) shall not exceed 2 hours for any replaceable
+ module.
+
+
+
+
+S&T/EI/SPEC/2026/017 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                        Page 2
+

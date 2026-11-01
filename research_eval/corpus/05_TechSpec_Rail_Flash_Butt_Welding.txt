@@ -1,0 +1,111 @@
+Technical Specification: Flash Butt Welding of Rails
+Specification No.: ENGG/TS/WELD/2026/05     Issue Date: 20 September 2026     Status: Draft for review
+1. Introduction
+This specification covers the requirements for flash butt welding (FBW) of 60 kg/m, 90 UTS rails to form long welded rail (LWR) panels at a fixed welding plant. It defines materials, equipment, process parameters, inspection, and acceptance criteria.
+2. Referenced Standards
+IRS T-12: Rails (60 kg/m, 90 UTS) - material specification
+IRS T-59: Flash butt welding of rails
+EN 14587-1: Railway applications - Track - Flash butt welding of new rails
+IRPWM: Indian Railways Permanent Way Manual
+3. Materials
+3.1 Rail Chemical Composition
+Element
+Minimum (%)
+Maximum (%)
+Carbon (C)
+0.60
+0.80
+Manganese (Mn)
+0.80
+1.30
+Silicon (Si)
+0.10
+0.50
+Phosphorus (P)
+-
+0.030
+Sulphur (S)
+-
+0.030
+Hydrogen (H)
+-
+2.5 ppm
+3.2 Mechanical Properties
+Property
+Requirement
+Tensile strength
+Minimum 880 MPa (90 UTS grade)
+Elongation
+Minimum 10%
+Hardness (head)
+260 - 300 HB
+Fatigue (2 x 10^6 cycles)
+No failure at stress range 240 MPa
+4. Equipment
+Welding shall be performed on a stationary flash butt welding machine with the following minimum capability:
+Parameter
+Value
+Maximum upset force
+1000 kN
+Rated power
+250 kVA
+Control
+Microprocessor, programmable, with data logging
+Rail straightness correction
+Hydraulic, +/- 0.3 mm over 1 m
+Weld trimming
+Hot shearing within 90 s after upset
+5. Welding Process Parameters
+Stage
+Parameter
+Typical Value
+Tolerance
+Preheating
+Number of pulses
+12
++/- 2
+Flashing
+Flash duration
+55 s
++/- 5 s
+Flashing
+Burn-off length
+12 mm
++/- 1 mm
+Upsetting
+Upset current time
+1.6 s
++/- 0.2 s
+Upsetting
+Upset length
+5 mm
++/- 1 mm
+Post-weld
+Normalising temperature
+850 C
++/- 25 C
+6. Inspection and Testing
+6.1 Visual and Geometric
+Straight-edge test (1 m): vertical deviation 0 to +0.3 mm on the running table.
+Lateral deviation of gauge face not to exceed 0.3 mm over 1 m.
+No visible cracks, notches or burn marks on the weld collar.
+6.2 Non-destructive and Destructive Tests
+Test
+Frequency
+Acceptance Criterion
+Ultrasonic testing
+100% of welds
+No indication above reference level - 6 dB
+Slow bend test
+1 per 100 welds
+Fracture load not less than 1450 kN, deflection not less than 18 mm
+Macro-etch
+1 per 500 welds
+No lack of fusion or inclusions
+Hardness traverse
+1 per 500 welds
+Within 20 HB of parent rail
+7. Documentation
+Each weld shall carry a unique identification marked on the web, comprising welding plant code, date, machine number and serial number. Machine data logs shall be retained for the service life of the rail panel.
+8. Non-Conformance
+Any weld failing a prescribed test shall be cut out and rejected. Where a failure is found in a sample test, all welds produced since the last satisfactory test shall be 100% re-tested.

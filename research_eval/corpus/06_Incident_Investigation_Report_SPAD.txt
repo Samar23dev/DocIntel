@@ -1,0 +1,96 @@
+Incident Investigation Report: Signal Passed At Danger (SPAD)
+Report No.: SAFETY/INV/2026/033     Classification: Consequential Train Accident (fictional scenario)     Status: Final
+Item
+Details
+Date and Time
+03 August 2026, 05:42 hrs
+Location
+Km 214/6-8, between Station A and Station B (fictional)
+Train
+12345 Express, 18 coaches, hauled by electric loco
+Section
+Double line, automatic block, 110 km/h
+Weather
+Dense fog, visibility approx. 60 m
+Casualties
+No fatalities; 3 minor injuries
+Damage
+Estimated INR 18.5 lakh (track and signalling)
+1. Executive Summary
+The train passed automatic signal AS-214 at danger and came to a stop 410 m beyond the signal, after emergency braking, short of the preceding goods train standing on the same line. A rear-end collision was avoided; however, one coach derailed at a trailing crossover. The investigation concluded that the primary cause was loss of signal sighting in dense fog, combined with a non-functional train protection warning on the locomotive.
+2. Sequence of Events
+Time
+Event
+05:31
+Goods train 54321 stops at AS-214 (showing red) due to preceding section occupancy
+05:38
+12345 Express passes AS-212 showing double yellow at 98 km/h
+05:40
+Express passes AS-213 showing single yellow at 92 km/h
+05:41:40
+Loco Pilot sights AS-214 red at approx. 70 m, applies emergency brake
+05:42
+Train passes AS-214 at danger at 41 km/h and stops 410 m beyond
+05:43
+Loco Pilot informs Section Controller by walkie-talkie
+05:49
+Traffic and power block imposed; relief arranged
+3. Findings
+3.1 Human Factors
+The Loco Pilot had completed 7 hours 20 minutes of duty at the time of the incident, within permissible limits.
+The Loco Pilot did not reduce speed adequately after sighting the double-yellow aspect in poor visibility.
+The Assistant Loco Pilot was not calling out signal aspects as required.
+3.2 Equipment
+The onboard train protection warning system (TPWS) was found isolated by the crew earlier in the journey after repeated spurious alarms.
+Signal AS-214 and its approach aspects were tested and found working correctly.
+Brake power tested at 94% at the originating station; emergency braking distance was consistent with the loaded train weight.
+3.3 Infrastructure
+Signal sighting distance in clear conditions measured at 420 m, compliant with the standard.
+Fog signal posts were not provided in this block section.
+4. Root Cause Analysis
+Category
+Cause
+Contribution
+Primary
+Failure to control speed on caution aspects in dense fog
+High
+Contributory
+TPWS isolated without authority
+High
+Contributory
+Absence of fog-safe device on locomotive
+Medium
+Contributory
+Lack of aspect call-outs by Assistant Loco Pilot
+Medium
+5. Recommendations
+Reinforce fog-season operating instructions: maximum 60 km/h in visibility below 100 m.
+Fit all locomotives with a GPS-based fog safety device and verify before departure.
+Make TPWS isolation subject to controller approval, with automatic event logging.
+Provide fog signal posts at intervals of 1 km on sections with automatic signalling.
+Conduct counselling and retraining of the crew on signal call-out discipline.
+6. Compliance Tracking
+Rec. No.
+Responsible
+Target Date
+Status
+1
+Divisional Operations Manager
+30-Sep-2026
+Completed
+2
+Chief Electrical Loco Engineer
+31-Dec-2026
+In progress
+3
+Chief Signal & Telecom Engineer
+31-Oct-2026
+In progress
+4
+Chief Operations Manager
+31-Mar-2027
+Planned
+5
+Divisional Operations Manager
+15-Sep-2026
+Completed

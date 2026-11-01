@@ -1,0 +1,34 @@
+                         MONTHLY PUNCTUALITY REPORT
+    Mail/Express trains, FY 2025-26, Sample Division (fictional data)
+
+    Document No.                   OPS/PUNCT/FY2526/12
+    Reporting period               April 2025 to March 2026
+    Measure                        % of trains arriving within 10 minutes of schedule at destination
+    Target                         92.0% for the financial year
+
+    1. Overview
+    Figure 1 shows month-wise punctuality of Mail/Express trains. Performance dipped during the monsoon
+    months and recovered steadily from October onward after completion of track strengthening works and
+    revised timetable pathing.
+
+
+
+
+                           Figure 1: Monthly punctuality versus the 92.0% target (green = target met).
+
+    2. Quarterly Summary
+               Quarter             Months                                Average Punctuality (%)
+               Q1                  Apr - Jun                             88.9
+               Q2                  Jul - Sep                             86.3
+               Q3                  Oct - Dec                             92.6
+               Q4                  Jan - Mar                             92.3
+
+    3. Remarks
+    The division will continue speed-restriction clearance and signal reliability improvements to sustain
+    performance above target in the next financial year.
+
+
+
+
+OPS/PUNCT/FY2526/12 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                 Page 1
+

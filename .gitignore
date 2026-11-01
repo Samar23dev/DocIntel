@@ -113,8 +113,27 @@ desktop.ini
 # Linux
 *~
 
+# Generated editor guidance
+AGENTS.md
+CLAUDE.md
+
 # Log files
 *.log
+
+# LaTeX build output
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
 
 # Database files
 *.db

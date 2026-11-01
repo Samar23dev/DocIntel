@@ -1,0 +1,90 @@
+              ELECTRIC LOCOMOTIVE MAINTENANCE
+                          MANUAL
+ Class: 3-Phase IGBT, 25 kV AC, 9000 HP Freight Locomotive (generic specification)
+
+ Document No.                          ELM/MAINT/3PH-9K/Rev.04
+ Applicable Shed                       Electric Loco Shed (fictional)
+ Revision Date                         01 September 2026
+ Supersedes                            Rev.03 dated 12 March 2024
+
+ 1. General Technical Data
+ Parameter                                                   Value
+ Supply voltage                                              25 kV AC, 50 Hz single phase
+ Continuous power at wheel                                   9000 HP (6120 kW)
+ Axle arrangement                                            Co-Co
+ Maximum speed                                               120 km/h
+ Starting tractive effort                                    46 tonnes (460 kN)
+ Axle load                                                   22.5 tonnes
+ Gear ratio                                                  92:17
+ Wheel diameter (new / condemning)                           1092 mm / 1014 mm
+ Traction motor                                              6 x 3-phase induction, 1150 kW each
+ Regenerative braking                                        Yes, up to 60% of tractive effort
+
+
+ 2. Maintenance Schedule
+ Schedule            Periodicity               Man-hours       Key Activities
+ Trip (TS)           Every trip / 5,000 km     3               Visual check of pantograph, roof equipment, bogie, brake rigging
+ IA                  30 days +/- 3             8               Pantograph carbon strip, sanding, auxiliary compressor oil
+ IB                  60 days +/- 5             14              Filters, cooling blower, earthing brush, brake blocks
+                                                               Traction motor bearing grease, gear case oil, converter insulation
+ IC                  180 days +/- 10           28
+                                                               test
+                                                               Circuit breaker contact wear, transformer oil level, battery
+ Quarterly (Q)       90 days                   18
+                                                               electrolyte
+                                                               Full roof gear overhaul, bogie examination, protection relay
+ Annual (AOH)        12 months                 76
+                                                               calibration
+                                                               Traction motor megger, suspension, brake cylinders, wheel
+ IOH                 18 months                 160
+                                                               profiling
+                                                               Complete dismantling, traction motor rewinding check, converter
+ POH                 6 years                   520
+                                                               overhaul
+
+
+
+
+ELM/MAINT/3PH-9K/Rev.04 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                               Page 1
+ 3. Pantograph Maintenance Procedure (IA Schedule)
+ 3.1 Safety precautions. Ensure the locomotive is stabled on a track with OHE isolated and earthed.
+ Obtain a Permit-to-Work (PTW) from the Traction Distribution (TrD) controller. Lower the pantograph and
+ confirm using the roof inspection platform. Isolate the main circuit breaker (VCB) and apply the key
+ interlock.
+ 3.2 Carbon strip inspection. Measure remaining carbon thickness at five points along each strip.
+ Replace the strip if thickness is less than 8 mm at any point, or if cracks exceed 20 mm in length, or if there
+ is a step wear greater than 3 mm.
+ 3.3 Contact force. Using the calibrated dynamometer, record static contact force at working height 4.5 m.
+ Acceptable range is 70 N +/- 10 N (rising) and 60 N +/- 10 N (falling).
+
+ 4. Fault Diagnosis Quick Reference
+ Fault Code       Description                  Probable Cause                          Corrective Action
+                                               Low air pressure (< 5.5 kg/cm2);        Check MR pressure, reset key, inspect
+ F-101            VCB fails to close
+                                               interlock open                          interlock contacts
+                  Converter                                                            Replace filter, check blower motor,
+ F-214                                         Cooling blower failure; choked filter
+                  over-temperature                                                     inspect coolant level
+                                               Insulation breakdown; moisture          Megger test (min. 5 MOhm at 1000 V),
+ F-307            Traction motor earth fault
+                                               ingress                                 isolate bogie, replace motor
+                  Wheel slip detected                                                  Clear sander, check speed sensor gap
+ F-422                                         Sander blocked; sensor fault
+                  persistently                                                         (1.0 +/- 0.2 mm)
+                                               Leaking BP coupling; faulty A-9         Test with soap solution, replace gasket,
+ F-509            Brake pipe pressure low
+                                               valve                                   overhaul valve
+
+
+ 5. Torque and Clearance Values
+ Component                               Fastener               Torque (Nm)            Remarks
+ Traction motor suspension               M30 bolt               1100                   Apply thread locking compound
+ Axle box cover                          M20 bolt               450                    Cross-pattern tightening
+ Pantograph base insulator               M16 bolt               190                    Check for cracked porcelain
+ Brake caliper mount                     M24 bolt               780                    Re-torque after 500 km
+
+
+
+
+ELM/MAINT/3PH-9K/Rev.04 | SYNTHETIC SAMPLE DOCUMENT - for docintel testing only                                              Page 2
+

@@ -159,6 +159,7 @@ export function ChatPanel({
                   message={message}
                   notebookId={notebookId}
                   onReferenceClick={handleReferenceClick}
+                  onSendMessage={onSendMessage}
                 />
               ))
             )}
@@ -320,12 +321,14 @@ interface ChatMessageProps {
   message: SourceChatMessage
   notebookId?: string
   onReferenceClick: (type: string, id: string) => void
+  onSendMessage: (message: string, modelOverride?: string) => void
 }
 
 const ChatMessage = memo(function ChatMessage({
   message,
   notebookId,
-  onReferenceClick
+  onReferenceClick,
+  onSendMessage
 }: ChatMessageProps) {
   return (
     <div
@@ -352,6 +355,7 @@ const ChatMessage = memo(function ChatMessage({
             <AIMessageContent
               content={message.content}
               onReferenceClick={onReferenceClick}
+              onSendMessage={onSendMessage}
             />
           ) : (
             <p className="text-sm break-all">{message.content}</p>
@@ -378,10 +382,12 @@ const ChatMessage = memo(function ChatMessage({
 // Helper component to render AI messages with clickable references
 function AIMessageContent({
   content,
-  onReferenceClick
+  onReferenceClick,
+  onSendMessage
 }: {
   content: string
   onReferenceClick: (type: string, id: string) => void
+  onSendMessage: (message: string, modelOverride?: string) => void
 }) {
   const { t } = useTranslation()
   // Convert references to compact markdown with numbered citations
@@ -391,9 +397,19 @@ function AIMessageContent({
   const LinkComponent = createCompactReferenceLinkComponent(onReferenceClick)
 
   return (
-    <MarkdownRenderer components={{
-      a: LinkComponent
-    }}>
+    <MarkdownRenderer
+      components={{ a: LinkComponent }}
+      onVisualizationRegenerate={(code, format) => {
+        const labels = {
+          mermaid: 'Mermaid diagram',
+          'vega-lite': 'Vega-Lite chart',
+          dot: 'Graphviz diagram',
+          'python-plot': 'Python chart',
+        }
+        const fence = format === 'mermaid' ? 'mermaid' : format === 'dot' ? 'dot' : format === 'vega-lite' ? 'vega-lite' : 'python-plot'
+        onSendMessage(`Regenerate this visualization using ${labels[format]}. Preserve the information and relationships, simplify dense layouts when needed, and return exactly one fenced \`\`\`${fence} block. Do not surround the code block with another visualization.\n\nCurrent source:\n\n${'```'}${format === 'python-plot' ? 'python-plot' : fence}\n${code}\n${'```'}`)
+      }}
+    >
       {markdownWithCompactRefs}
     </MarkdownRenderer>
   )
