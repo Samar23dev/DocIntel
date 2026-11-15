@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install backend and development dependencies
+        run: uv sync --locked --group dev
+
+      # Keep lint focused on the visualization code while existing unrelated
+      # repository-wide Ruff findings are addressed separately.
+      - name: Lint visualization backend
+        run: >-
+          uv run ruff check
+          api/routers/python_plot.py
+          open_notebook/graphs/chat.py
+          open_notebook/graphs/source_chat.py
+          open_notebook/utils/plotly_plot.py
+          open_notebook/utils/python_plot.py
+          open_notebook/utils/vega_lite.py
+          open_notebook/utils/visualization_formats.py
+          tests/test_python_plot.py
+          tests/test_visualization_agents.py
+
+      - name: Run backend tests
+        run: uv run pytest -q
+
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Run frontend tests
+        run: npm test
+
+      - name: Build frontend
+        run: npm run build

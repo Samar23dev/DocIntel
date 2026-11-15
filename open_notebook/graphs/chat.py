@@ -13,15 +13,15 @@ from typing_extensions import TypedDict
 from open_notebook.ai.provision import provision_langchain_model
 from open_notebook.config import LANGGRAPH_CHECKPOINT_FILE
 from open_notebook.domain.notebook import Notebook
-from open_notebook.exceptions import IncompleteGenerationError, DocIntelError
+from open_notebook.exceptions import DocIntelError, IncompleteGenerationError
 from open_notebook.utils import clean_thinking_content
 from open_notebook.utils.error_classifier import classify_error
 from open_notebook.utils.mermaid import mermaid_instruction_for_messages
-from open_notebook.utils.python_plot import python_plot_instruction_for_messages
 from open_notebook.utils.plotly_plot import plotly_instruction_for_messages
+from open_notebook.utils.python_plot import python_plot_instruction_for_messages
+from open_notebook.utils.text_utils import extract_text_content
 from open_notebook.utils.vega_lite import vega_lite_instruction_for_messages
 from open_notebook.utils.visualization_formats import DEFAULT_VISUALIZATION_INSTRUCTION
-from open_notebook.utils.text_utils import extract_text_content
 
 
 class ThreadState(TypedDict):

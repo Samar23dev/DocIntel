@@ -19,7 +19,7 @@ export function PlotlyPlot({ code, onRegenerate }: { code: string; onRegenerate?
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    let cancelled = false
+    const controller = new AbortController()
     setFigure(null)
     setError('')
 
@@ -27,20 +27,25 @@ export function PlotlyPlot({ code, onRegenerate }: { code: string; onRegenerate?
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
+      signal: controller.signal,
     }).then(async (response) => {
       const data = await response.json()
       if (!response.ok) throw new Error(data.detail || 'Plotly generation failed')
-      if (!cancelled) setFigure(data.figure as PlotlyFigure)
+      setFigure(data.figure as PlotlyFigure)
     }).catch((reason) => {
+      if (controller.signal.aborted) return
       console.error('Plotly render failed', reason)
-      if (!cancelled) setError('The generated chart could not be rendered. Please try regenerating it.')
+      setError('The generated chart could not be rendered. Please try regenerating it.')
     })
+
+    return () => controller.abort()
   }, [code])
 
   useEffect(() => {
-    if (!figure || !chartRef.current) return
-    Plotly.react(chartRef.current, figure.data, figure.layout, { responsive: true, ...figure.config })
-    return () => { if (chartRef.current) Plotly.purge(chartRef.current) }
+    const chart = chartRef.current
+    if (!figure || !chart) return
+    Plotly.react(chart, figure.data, figure.layout, { responsive: true, ...figure.config })
+    return () => { Plotly.purge(chart) }
   }, [figure])
 
   const downloadCode = () => {

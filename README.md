@@ -1,6 +1,6 @@
 # DocIntel
 
-DocIntel is a private research workspace developed and maintained by Samar Mittal (samarmittal59@gmail.com). It brings documents, notebooks, notes, search, AI conversations, podcasts, and visual explanations into one configurable workspace, with Matplotlib/Python charts and Graphviz DOT diagrams as the default generated formats. Vega-Lite and Mermaid remain available as explicit regeneration options. DocIntel is designed for private, provider-flexible knowledge work and can run as a containerized deployment on a local machine or trusted server.
+DocIntel is a private research workspace developed and maintained by Samar Mittal (samarmittal59@gmail.com). It brings documents, notebooks, notes, search, AI conversations, podcasts, and visual explanations into one configurable workspace, with Matplotlib/Python charts and Graphviz DOT diagrams as the default generated formats. Plotly/Python, Vega-Lite, and Mermaid remain available when explicitly requested or selected during regeneration. DocIntel is designed for private, provider-flexible knowledge work and can run as a containerized deployment on a local machine or trusted server.
 
 ## What DocIntel can do
 
@@ -9,10 +9,41 @@ DocIntel is a private research workspace developed and maintained by Samar Mitta
 - Ask questions in notebook chat or chat with an individual source.
 - Generate notes, summaries, insights, transformations, and podcasts.
 - Use one or more AI providers/models and configure provider credentials through the UI.
-- Generate Vega-Lite charts and Graphviz DOT diagrams directly inside chat.
-- Regenerate an existing visualization in Vega-Lite, Graphviz DOT, or Mermaid.
+- Generate Matplotlib/Python charts and Graphviz DOT diagrams by default.
+- Request or regenerate interactive Plotly charts, Vega-Lite charts, and Mermaid diagrams.
 - Download visualizations as PNG or SVG and download their chart or diagram source.
 - Keep generated visualization type labels visible in chat.
+
+## Screenshots and walkthrough
+
+The animated walkthrough follows a typical DocIntel flow, from notebook and model setup through source review, notes, chat, visualizations, podcast creation, and API documentation.
+
+![DocIntel product walkthrough](screenshots/docintel-walkthrough.gif)
+
+<details>
+<summary>View individual screenshots</summary>
+
+| Step | Screenshot |
+| --- | --- |
+| Create a notebook | ![Create a notebook](screenshots/1_new_notebook.png) |
+| Choose models | ![Choose models](screenshots/2_model_setup.png) |
+| Configure providers | ![Configure model providers](screenshots/3_model_interface.png) |
+| Connect a self-hosted model | ![Set up an Ollama model](screenshots/3b_setup_selfhosted_model_ollama.png) |
+| Open the notebook workspace | ![Notebook workspace](screenshots/4_book_defaultphase.png) |
+| Review source content | ![Review extracted source content](screenshots/5_sampel_doc_content.png) |
+| Generate insights | ![Insights and transformations](screenshots/6_insights_transform.png) |
+| Inspect source details | ![Source details](screenshots/7_details.png) |
+| Chat with sources | ![Source chat](screenshots/8_sample_chat.png) |
+| Generate a chart | ![Chart generation](screenshots/9_prompt_chart_gen.png) |
+| Regenerate a visualization | ![Visualization regeneration](screenshots/10_auto_reprompt_regenerate.png) |
+| Create a podcast | ![Podcast interface](screenshots/11_audio_gen_interface.png) |
+| Explore the API with Swagger UI | ![API setup and Swagger UI](screenshots/12_docintel_api_setup.png) |
+| Browse API reference with ReDoc | ![ReDoc API reference](screenshots/13_docintel_redoc.png) |
+| Write and save a note | ![Save a note](screenshots/14_save_note.png) |
+| Preview a Markdown note | ![Markdown note preview](screenshots/15_note_openview_markdown.png) |
+| Read a note in full-screen view | ![Full-screen note view](screenshots/16_full_screen_noteview.png) |
+
+</details>
 
 ## Architecture
 
@@ -45,8 +76,8 @@ For a detailed viewer-friendly system diagram, OCR sequence, multilingual flow, 
 
 | Component | Responsibility |
 | --- | --- |
-| Next.js frontend | Notebook, source, search, settings, chat, podcast, Markdown, Vega-Lite, Graphviz, Mermaid, and visualization export interfaces |
-| FastAPI routers | Authentication, configuration, credentials, sources, notebooks, chat, transformations, search, jobs, and visualization APIs |
+| Next.js frontend | Notebook, source, search, settings, chat, podcast, Markdown, and Matplotlib, Plotly, Vega-Lite, Graphviz, and Mermaid visualization interfaces |
+| FastAPI routers | Authentication, configuration, credentials, sources, notebooks, chat, transformations, search, jobs, and Python chart-rendering APIs |
 | AI graphs | Notebook chat, source chat, transformations, questions, embeddings, and visualization specialist routing |
 | Provider registry and model manager | Provider credential resolution and selection of chat, embedding, speech-to-text, and text-to-speech models |
 | Content extraction layer | Text-native and scanned-document extraction, URL processing, media processing, OCR, formulas, and optional image/vision analysis |
@@ -62,7 +93,7 @@ For a detailed viewer-friendly system diagram, OCR sequence, multilingual flow, 
 4. Optional embeddings are generated by a configured embedding model.
 5. Extracted text, metadata, and vectors are stored in SurrealDB; original uploads remain under the configured persistent data directory.
 6. Chat requests retrieve notebook or source context, call the selected provider/model, and stream the response to the UI.
-7. Vega-Lite, Graphviz DOT, and optional Mermaid output are handled as specialized Markdown blocks with format labels, regeneration, source download, copy, PNG, and SVG controls.
+7. Visualization code fences are dispatched to the matching renderer. Matplotlib and Plotly Python blocks are executed by their FastAPI endpoints; Vega-Lite, Graphviz DOT, and Mermaid render in the browser. Cards provide format labels and supported regeneration, source, copy, and image export controls.
 
 ### Processing lifecycle
 
@@ -232,15 +263,24 @@ OCR is an extraction aid, not a language guarantee: scripts, handwriting, low-re
 
 ## Visualization formats
 
-Generated data charts default to Matplotlib/Python. Relationships, workflows, and architecture diagrams default to Graphviz DOT. Vega-Lite and Mermaid remain available explicitly through each visualization's **Regenerate** menu.
+Generated data charts default to Matplotlib/Python. Relationships, workflows, and architecture diagrams default to Graphviz DOT. Plotly/Python, Vega-Lite, and Mermaid are available when explicitly requested or selected through each visualization's **Regenerate** menu.
 
 Example:
 
 - “Create a Vega-Lite chart from these quarterly values.”
+- “Create an interactive Plotly chart from these quarterly values.”
 - “Create a Graphviz DOT architecture diagram for source ingestion, retrieval, and response generation.”
 - “Regenerate this visualization as Mermaid.”
 
 Rendered cards show the format in a persistent label. Supported downloads are PNG, SVG, source code, and clipboard copy where the selected visualization format supports that operation.
+
+| Format | Use it for | How it renders |
+| --- | --- | --- |
+| Matplotlib/Python | Static, publication-oriented data charts; default chart format | Backend executes Python and returns SVG |
+| Plotly/Python | Interactive charts with zoom, hover, and pan | Backend returns figure JSON; Plotly.js renders it in the browser |
+| Vega-Lite | Declarative charts expressed as a JSON specification | `vega-embed` compiles and renders in the browser |
+| Graphviz DOT | Relationships, workflows, and architecture diagrams; default diagram format | Graphviz WASM renders in the browser |
+| Mermaid | Mermaid diagrams when explicitly requested | Mermaid renders in the browser |
 
 ## Mermaid regeneration
 
@@ -266,6 +306,10 @@ TikZ or PGFPlots code pasted with a request such as “Convert and render this c
 
 The rendered chart provides controls for downloading SVG, downloading `.py` source, and copying source.
 
+## Plotly charts
+
+Request Plotly explicitly, for example: “Create an interactive Plotly chart for quarterly revenue.” Regenerating a visualization as **Plotly / Python** produces a `plotly-plot` block. The backend executes the Python and serializes the resulting `fig` to JSON; the browser renders it with Plotly.js. Plotly charts provide interactive hover/zoom behavior, PNG export, source download, and source copy.
+
 ## Plot execution and security
 
 The minimal plot implementation applies several safeguards:
@@ -273,9 +317,10 @@ The minimal plot implementation applies several safeguards:
 - Python code is limited to 20,000 characters.
 - Execution uses a 15-second timeout.
 - Generated SVG output is limited to 5 MB.
-- The AST validator restricts imports to Matplotlib, NumPy, and pandas.
+- The AST validator restricts plotting imports to the supported Matplotlib, Plotly, NumPy, and pandas packages.
 - File access, dynamic Python execution, private attributes, and network-oriented imports are blocked.
 - Execution runs with a temporary working directory and temporary Matplotlib configuration.
+- Plotly output is limited in size and must serialize as valid figure JSON before browser rendering.
 - Mermaid uses its strict rendering security mode.
 - Generated SVG markup is sanitized in the frontend before insertion.
 
@@ -322,6 +367,12 @@ Run `docker compose down` only when you want DocIntel stopped. Do not remove or 
 Do not commit databases, uploads, API keys, passwords, encryption keys, user notebooks, or generated runtime files to GitHub or GitLab.
 
 ## Development
+
+### Continuous integration
+
+The [GitHub Actions workflow](.github/workflows/ci.yml) runs on pull requests targeting `main`, pushes to `main`, and manual dispatch. It runs the full backend test suite, visualization-backend Ruff checks, and frontend lint, tests, and production build. These checks do not require provider API keys.
+
+Backend Ruff is intentionally limited to visualization-related files while pre-existing repository-wide lint findings are handled separately.
 
 Run frontend checks from the frontend directory:
 
